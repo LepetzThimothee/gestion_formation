@@ -19,6 +19,6 @@ class Formation extends Model
     ];
 
     public function stages() {
-        return $this->belongsToMany(Stage::class);
+        return $this->hasMany(Stage::class);
     }
 }

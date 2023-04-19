@@ -28,6 +28,6 @@ class Stage extends Model
     ];
 
     public function formations() {
-        return $this->hasOne(Formation::class);
+        return $this->belongsTo(Formation::class);
     }
 }
