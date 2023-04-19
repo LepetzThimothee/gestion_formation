@@ -11,6 +11,7 @@ class Stage extends Model
 
     protected $fillable = [
         'session',
+        'fomation_id',
         'intitule',
         'numero',
         'numero_declaration_existence',
@@ -27,7 +28,7 @@ class Stage extends Model
         'facture',
     ];
 
-    public function formations() {
+    public function formation() {
         return $this->belongsTo(Formation::class);
     }
 }
