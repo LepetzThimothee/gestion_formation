@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('organisme');
             $table->string('telephone');
             $table->string('email');
-            $table->string('numero_declaration_existence');
+            $table->string('numero_declaration_existence',11);
             $table->bigInteger('siret')->unique();
             $table->string('adresse');
             $table->string('interlocuteur');
