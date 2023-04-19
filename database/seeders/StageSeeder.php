@@ -35,6 +35,8 @@ class StageSeeder extends Seeder
                 'convocation' => true,
                 'attestation' => true,
                 'facture' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'session' => 220175,
@@ -53,6 +55,8 @@ class StageSeeder extends Seeder
                 'convocation' => true,
                 'attestation' => true,
                 'facture' => true,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
         foreach ($formations as $formation) {
