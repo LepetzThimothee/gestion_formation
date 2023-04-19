@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         // ]);
         $this->call(FormationSeeder::class);
         $this->call(StageSeeder::class);
+        $this->call(SalarieSeeder::class);
     }
 }
