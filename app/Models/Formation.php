@@ -17,4 +17,8 @@ class Formation extends Model
         'adresse',
         'interlocuteur',
     ];
+
+    public function stages() {
+        return $this->belongsToMany(Stage::class);
+    }
 }
