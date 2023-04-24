@@ -12,15 +12,15 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('formations', function (Blueprint $table) {
-            $table->id();
-            $table->string('organisme');
-            $table->string('telephone');
-            $table->string('email');
-            $table->string('numero_declaration_existence',11);
-            $table->bigInteger('siret')->unique();
-            $table->string('adresse');
-            $table->string('interlocuteur');
-            $table->timestamps();
+            $table->id(); // id
+            $table->string('organisme')->nullable(); // l'organise de formation
+            $table->string('telephone')->nullable(); // le numero de telephone
+            $table->string('email')->nullable(); // l'adresse mail
+            $table->string('numero_declaration_existence',11)->nullable(); // le numero de declaration d'existence
+            $table->bigInteger('siret')->nullable(); // le numero de SIRET
+            $table->string('adresse')->nullable(); // l'adresse physique
+            $table->string('interlocuteur')->nullable(); // l'interlocuter
+            $table->timestamps(); // created_at et updated_at
         });
     }
 
