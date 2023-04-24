@@ -25,6 +25,7 @@ Route::get('stage-export', [StageController::class, 'stageExport'])->name('stage
 Route::post('salarie-import', [SalarieController::class, 'salarieImport'])->name('salarie-import');
 Route::get('salarie-export', [SalarieController::class, 'salarieExport'])->name('salarie-export');
 Route::post('bergerie-import', [BergerieController::class, 'bergerieImport'])->name('bergerie-import');
+Route::get('bergerie-export', [BergerieController::class, 'bergerieExport'])->name('bergerie-export');
 
 
 Route::get('/', function () {

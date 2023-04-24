@@ -6,7 +6,7 @@ use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\WithConditionalSheets;
 use Maatwebsite\Excel\Concerns\WithMultipleSheets;
 
-class MultiSheetSelector implements WithMultipleSheets
+class MultiSheetSelectorImport implements WithMultipleSheets
 {
     use Importable,WithConditionalSheets;
 

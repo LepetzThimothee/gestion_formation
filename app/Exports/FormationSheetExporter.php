@@ -3,10 +3,14 @@
 namespace App\Exports;
 
 use App\Models\Formation;
+use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithTitle;
 
-class FormationExport implements FromCollection
+class FormationSheetExporter implements FromCollection, WithTitle
 {
+    use Exportable;
+
     /**
     * @return \Illuminate\Support\Collection
     */
@@ -19,5 +23,10 @@ class FormationExport implements FromCollection
     public function headings() {
         return ["organismes de formation","coordonnées téléphoniques","adresses mail","Numéro déclaration existence",
             "Numéro de SIRET","adresse","Interlocuteur"];
+    }
+
+    public function title(): string
+    {
+        return "Organismes de formation";
     }
 }

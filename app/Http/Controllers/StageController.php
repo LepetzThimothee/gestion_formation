@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\StageExport;
+use App\Exports\StageSheetExporter;
 use App\Http\Controllers\Controller;
-use App\Imports\MultiSheetSelector;
+use App\Imports\MultiSheetSelectorImport;
 use App\Models\Stage;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
@@ -14,7 +14,7 @@ class StageController extends Controller
     public function stageImport(Request $request)
     {
         Stage::truncate(); // On vide la base de données formation
-        $stage = new MultiSheetSelector();
+        $stage = new MultiSheetSelectorImport();
         $stage->onlySheets('Stage'); // On prend que la feuille qui nous interesse
         Excel::import($stage, $request->file('file'));
         return redirect('/file-import-export')->with('success', 'Stages Import Successfully!');
@@ -25,6 +25,6 @@ class StageController extends Controller
      */
     public function stageExport(Request $request)
     {
-        return Excel::download(new StageExport, 'stage.xlsx');
+        return Excel::download(new StageSheetExporter, 'stage.xlsx');
     }
 }

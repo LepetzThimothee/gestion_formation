@@ -19,15 +19,6 @@ class StageSheetImporter implements ToModel
         return $formationId;
     }
 
-    public function intToDate($val) {
-        if (getType($val) == getType(0)) {
-            $val = Date::create(1900,1,0)
-                ->addDays($val-1) // On ajoute le nombre de jours donné à 01/01/1900 qui est le système de date de Excel
-                ->format("d/m/y");
-        }
-        return $val;
-    }
-
     /**
     * @param array $row
     *
@@ -44,8 +35,8 @@ class StageSheetImporter implements ToModel
             'formation_obligatoire' => $row[4],
             'intra_inter' => $row[5],
             'cout_pedagogique' => $row[6],
-            'debut_formation' => $this->intToDate($row[7]),
-            'fin_formation' =>  $this->intToDate($row[8]),
+            'debut_formation' => $row[7],
+            'fin_formation' =>  $row[8],
             'duree' => $row[9],
             'opco' => $row[10],
             'convention' => $row[11],

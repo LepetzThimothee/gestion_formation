@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Exports\FormationExport;
+use App\Exports\FormationSheetExporter;
 use App\Http\Controllers\Controller;
-use App\Imports\MultiSheetSelector;
+use App\Imports\MultiSheetSelectorImport;
 use App\Models\Formation;
 use App\Models\Stage;
 use Illuminate\Http\Request;
@@ -25,7 +25,7 @@ class FormationController extends Controller
     {
         Schema::disableForeignKeyConstraints(); // On retire les contraintes de clé étrangère pour pouvoir vider les données de formation
         Formation::truncate(); // On vide la base de données formation
-        $formation = new MultiSheetSelector();
+        $formation = new MultiSheetSelectorImport();
         $formation->onlySheets('Organismes de formation'); // On prend que la feuille qui nous interesse
         Excel::import($formation, $request->file('file'));
         Schema::enableForeignKeyConstraints(); // On n'oublie pas de remettre les contraintes de clé étrangère
@@ -37,6 +37,6 @@ class FormationController extends Controller
      */
     public function formationExport(Request $request)
     {
-        return Excel::download(new FormationExport, 'formation.xlsx');
+        return Excel::download(new FormationSheetExporter, 'formation.xlsx');
     }
 }

@@ -102,7 +102,7 @@
             <a class="btn btn-warning" href="{{ route('salarie-export') }}">
                 Export Salaries
             </a>
-            <a class="btn btn-warning" href="{{ route('formation-export') }}">
+            <a class="btn btn-warning" href="{{ route('bergerie-export') }}">
                 Export Bergerie
             </a>
         </div>
