@@ -193,8 +193,15 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * Excel Service Providers...
+         */
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
+        /*
+         * IdeHelper Service Providers...
+         */
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*

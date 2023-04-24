@@ -12,23 +12,24 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('stages', function (Blueprint $table) {
-            $table->bigIncrements('session');
-            $table->unsignedBigInteger('formation_id');
-            $table->foreign('formation_id')->references('id')->on('formations');
-            $table->string('intitule');
+            $table->id();
+            $table->string('session')->nullable();
+            $table->string('intitule')->nullable();
             $table->string('numero')->nullable();
-            $table->string('organisme');
-            $table->boolean('formation_obligatoire');
-            $table->string('intra_inter',1);
-            $table->double('cout_pedagogique');
-            $table->date('debut_formation');
-            $table->date('fin_formation');
-            $table->integer('duree');
-            $table->boolean('opco');
-            $table->boolean('convention');
-            $table->boolean('convocation');
-            $table->boolean('attestation');
-            $table->boolean('facture');
+            $table->unsignedBigInteger('formation_id')->nullable();
+            $table->foreign('formation_id')->references('id')->on('formations')->onDelete('set null');
+            $table->string('organisme')->nullable();
+            $table->string('formation_obligatoire')->nullable();
+            $table->string('intra_inter',1)->nullable();
+            $table->string('cout_pedagogique')->nullable();
+            $table->string('debut_formation')->nullable();
+            $table->string('fin_formation')->nullable();
+            $table->string('duree')->nullable();
+            $table->string('opco')->nullable();
+            $table->string('convention')->nullable();
+            $table->string('convocation')->nullable();
+            $table->string('attestation')->nullable();
+            $table->string('facture')->nullable();
             $table->timestamps();
         });
     }

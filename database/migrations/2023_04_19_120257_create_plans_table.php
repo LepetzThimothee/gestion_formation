@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('plans', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('session');
-            $table->foreign('session')->references('session')->on('stages');
+            $table->unsignedBigInteger('stage_id');
+            $table->foreign('stage_id')->references('id')->on('stages');
             $table->unsignedBigInteger('matricule');
             $table->foreign('matricule')->references('matricule')->on('salaries');
             $table->boolean('salaire_impute');
