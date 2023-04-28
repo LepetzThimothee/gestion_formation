@@ -42,7 +42,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereTotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereTransport($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Plan whereUpdatedAt($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Salarie> $salaries
  * @mixin \Eloquent
  */
 class Plan extends Model

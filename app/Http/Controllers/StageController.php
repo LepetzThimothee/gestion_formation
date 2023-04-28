@@ -17,7 +17,7 @@ class StageController extends Controller
         $stage = new MultiSheetSelectorImport();
         $stage->onlySheets('Stage'); // On prend que la feuille qui nous interesse
         Excel::import($stage, $request->file('file'));
-        return redirect('/file-import-export')->with('success', 'Stages Import Successfully!');
+        return redirect('/file-import-export')->with('status', 'Stages Importés avec succès!');
     }
 
     /**

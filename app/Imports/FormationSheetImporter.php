@@ -17,7 +17,6 @@ class FormationSheetImporter implements ToModel
     */
     public function model(array $row)
     {
-
         return new Formation([
             'organisme' => $row[0],
             'telephone' => $row[1],

@@ -17,7 +17,7 @@ class SalarieController extends Controller
         $salarie = new MultiSheetSelectorImport();
         $salarie->onlySheets('Salariés'); // On prend que la feuille qui nous interesse
         Excel::import($salarie, $request->file('file'));
-        return redirect('/file-import-export')->with('success', 'Salaries Import Successfully!');
+        return redirect('/file-import-export')->with('status', 'Salaries Importés avec succès!');
     }
 
     /**

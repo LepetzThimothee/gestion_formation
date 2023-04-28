@@ -13,6 +13,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class BergerieController extends Controller
 {
+    public function fileImportExport()
+    {
+        return view('formation-import-export');
+    }
+
     public function bergerieImport(Request $request)
     {
         // On vide les tables
@@ -22,7 +27,7 @@ class BergerieController extends Controller
         $bergerie = new MultiSheetSelectorImport();
         $bergerie->onlySheets("Organismes de formation","Salariés","Stage");
         Excel::import($bergerie, $request->file('file'));
-        return redirect('/file-import-export')->with('success', 'Bergerie Import Successfully!');
+        return redirect('/file-import-export')->with('status', 'Bergerie Importé avec succès!');
     }
 
     public function bergerieExport()

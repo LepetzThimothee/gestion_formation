@@ -1,22 +1,20 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <title>Formation Import et Export</title>
-    <link rel="stylesheet"
-          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
-
 <script type="text/javascript">
     function ShowHideForm() {
-        var chkFormation = document.getElementById("chkFormation");
-        var chkStage = document.getElementById("chkStage");
-        var chkSalaries = document.getElementById("chkSalaries");
-        var chkToutes = document.getElementById("chkToutes");
-        var formFormation = document.getElementById("formFormation");
-        var formStage = document.getElementById("formStage");
-        var formSalaries = document.getElementById("formSalaries");
-        var formToutes = document.getElementById("formToutes");
+        const chkFormation = document.getElementById("chkFormation");
+        const chkStage = document.getElementById("chkStage");
+        const chkSalaries = document.getElementById("chkSalaries");
+        const chkToutes = document.getElementById("chkToutes");
+        const formFormation = document.getElementById("formFormation");
+        const formStage = document.getElementById("formStage");
+        const formSalaries = document.getElementById("formSalaries");
+        const formToutes = document.getElementById("formToutes");
         formFormation.style.display = chkFormation.checked ? "block" : "none";
         formStage.style.display = chkStage.checked ? "block" : "none";
         formSalaries.style.display = chkSalaries.checked ? "block" : "none";
@@ -24,9 +22,19 @@
     }
 </script>
 <body>
-<div class="container">
+<nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
+    <!-- Logo et lien vers l'accueil -->
+    <a class="navbar-brand" href="/">Gestion de formation</a>
+</nav>
+<div class="container flex-grow-1 d-flex justify-content-center align-items-center">
     <div class="card bg-light mt-3">
-        <div class="card-header">
+        <a href="/" class="btn btn-primary">Retour à l'accueil</a>
+        @if(session('status'))
+            <div class="alert alert-success mb-1 mt-3">
+                {{ session('status') }}
+            </div>
+        @endif
+        <div class="card-header mt-3">
             Import et Export en .xlsx
         </div>
         <div class="card-body">
@@ -108,7 +116,5 @@
         </div>
     </div>
 </div>
-
 </body>
-
 </html>

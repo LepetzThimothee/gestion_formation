@@ -34,7 +34,6 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Eloquent\Builder|Formation whereSiret($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Formation whereTelephone($value)
  * @method static \Illuminate\Database\Eloquent\Builder|Formation whereUpdatedAt($value)
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Stage> $stages
  * @mixin \Eloquent
  */
 class Formation extends Model

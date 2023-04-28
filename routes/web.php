@@ -17,17 +17,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('file-import-export', [FormationController::class, 'fileImportExport'])->name('file-import-export');
-Route::post('formation-import', [FormationController::class, 'formationImport'])->name('formation-import');
-Route::get('formation-export', [FormationController::class, 'formationExport'])->name('formation-export');
-Route::post('stage-import', [StageController::class, 'stageImport'])->name('stage-import');
-Route::get('stage-export', [StageController::class, 'stageExport'])->name('stage-export');
-Route::post('salarie-import', [SalarieController::class, 'salarieImport'])->name('salarie-import');
-Route::get('salarie-export', [SalarieController::class, 'salarieExport'])->name('salarie-export');
-Route::post('bergerie-import', [BergerieController::class, 'bergerieImport'])->name('bergerie-import');
-Route::get('bergerie-export', [BergerieController::class, 'bergerieExport'])->name('bergerie-export');
-
-
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('file-import-export', [BergerieController::class, 'fileImportExport'])->name('file-import-export');
+
+Route::prefix('import')->group(function () {
+    Route::post('formation', [FormationController::class, 'formationImport'])->name('formation-import');
+    Route::post('stage', [StageController::class, 'stageImport'])->name('stage-import');
+    Route::post('salarie', [SalarieController::class, 'salarieImport'])->name('salarie-import');
+    Route::post('bergerie', [BergerieController::class, 'bergerieImport'])->name('bergerie-import');
+});
+
+Route::prefix('export')->group(function () {
+    Route::get('formation', [FormationController::class, 'formationExport'])->name('formation-export');
+    Route::get('stage', [StageController::class, 'stageExport'])->name('stage-export');
+    Route::get('salarie', [SalarieController::class, 'salarieExport'])->name('salarie-export');
+    Route::get('bergerie', [BergerieController::class, 'bergerieExport'])->name('bergerie-export');
+});
+
+Route::resource('formations', FormationController::class);
