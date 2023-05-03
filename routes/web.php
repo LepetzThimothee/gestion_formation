@@ -38,3 +38,5 @@ Route::prefix('export')->group(function () {
 });
 
 Route::resource('formations', FormationController::class);
+Route::resource('stages', StageController::class);
+

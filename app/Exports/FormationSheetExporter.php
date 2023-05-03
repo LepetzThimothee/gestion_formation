@@ -5,9 +5,10 @@ namespace App\Exports;
 use App\Models\Formation;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
-class FormationSheetExporter implements FromCollection, WithTitle
+class FormationSheetExporter implements FromCollection, WithHeadings, WithTitle
 {
     use Exportable;
 
@@ -20,7 +21,7 @@ class FormationSheetExporter implements FromCollection, WithTitle
             'numero_declaration_existence','siret','adresse','interlocuteur']);
     }
 
-    public function headings() {
+    public function headings(): array {
         return ["organismes de formation","coordonnées téléphoniques","adresses mail","Numéro déclaration existence",
             "Numéro de SIRET","adresse","Interlocuteur"];
     }

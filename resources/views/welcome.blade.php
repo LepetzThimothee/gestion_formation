@@ -26,7 +26,7 @@
                     <a href="{{route('formations.create')}}" class="btn btn-primary btn-lg" role="button">Gestion des Organismes de formations</a>
                 </div>
                 <div class="col-md-4">
-                    <a href="/gestion-stages" class="btn btn-secondary btn-lg" role="button">Gestion des Stages</a>
+                    <a href="{{route('stages.create')}}" class="btn btn-secondary btn-lg" role="button">Gestion des Stages</a>
                 </div>
                 <div class="col-md-4">
                     <a href="/file-import-export" class="btn btn-info btn-lg" role="button">Gestion de l'exportation et l'importation</a>
