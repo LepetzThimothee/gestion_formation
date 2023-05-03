@@ -17,6 +17,10 @@ class SalarieSheetImporter implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
+        $salarie = Salarie::whereMatricule($row['matricule'])->first();
+        if($salarie) {
+            Salarie::whereMatricule($row['matricule'])->delete();
+        }
         return new Salarie([
             'matricule' => $row['matricule'],
             'nom' => $row['nom_de_famil_le_de_lagen'],

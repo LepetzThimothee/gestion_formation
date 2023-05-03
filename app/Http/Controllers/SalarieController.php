@@ -13,7 +13,6 @@ class SalarieController extends Controller
 {
     public function salarieImport(Request $request)
     {
-        Salarie::truncate(); // On vide la base de données formation
         $salarie = new MultiSheetSelectorImport();
         $salarie->onlySheets('Salariés'); // On prend que la feuille qui nous interesse
         Excel::import($salarie, $request->file('file'));

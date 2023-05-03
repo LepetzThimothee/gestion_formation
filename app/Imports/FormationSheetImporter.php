@@ -5,8 +5,9 @@ namespace App\Imports;
 use App\Models\Formation;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class FormationSheetImporter implements ToModel
+class FormationSheetImporter implements ToModel, WithHeadingRow
 {
     use Importable;
 
@@ -18,13 +19,13 @@ class FormationSheetImporter implements ToModel
     public function model(array $row)
     {
         return new Formation([
-            'organisme' => $row[0],
-            'telephone' => $row[1],
-            'email' => $row[2],
-            'numero_declaration_existence' => $row[3],
-            'siret' => $row[4],
-            'adresse' => $row[5],
-            'interlocuteur' => $row[6],
+            'organisme' => $row['organimes_de_formation'],
+            'telephone' => $row['coordonnees_telephoniques'],
+            'email' => $row['adresses_mail'],
+            'numero_declaration_existence' => $row['numero_declaration_existence'],
+            'siret' => $row['numero_de_siret'],
+            'adresse' => $row['adresse'],
+            'interlocuteur' => $row['interlocuteur'],
         ]);
     }
 }

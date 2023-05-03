@@ -21,21 +21,17 @@ class FormationController extends Controller
     }
 
     public function store(FormationRequest $request) {
-        try {
-            $formation = Formation::create([
-                'organisme' => $request->organisme,
-                'telephone' => $request->telephone,
-                'email' => $request->email,
-                'numero_declaration_existence' => $request->numero_declaration_existence,
-                'siret' => $request->siret,
-                'adresse' => $request->adresse,
-                'interlocuteur' => $request->interlocuteur
-            ]);
-            $formation->save();
-            return redirect("/")->with('status', "Formation créée avec succès");
-        } catch (Exception $e) {
-            return redirect("/")->with('status', "Erreur lors de la creation d'une formation");
-        }
+        $formation = Formation::create([
+            'organisme' => $request->input('organisme'),
+            'telephone' => $request->input('telephone'),
+            'email' => $request->input('email'),
+            'numero_declaration_existence' => $request->input('numero_declaration_existence'),
+            'siret' => $request->input('siret'),
+            'adresse' => $request->input('adresse'),
+            'interlocuteur' => $request->input('interlocuteur')
+        ]);
+        $formation->save();
+        return redirect(route("stages.create"))->with('status', "Formation créée avec succès");
     }
 
     /**
