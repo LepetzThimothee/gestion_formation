@@ -14,6 +14,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class StageController extends Controller
 {
+    public function index() {
+        $stages = Stage::all();
+        return view('stages.index', ['stages' => $stages]);
+    }
+
     public function create() {
         $formations = Formation::all();
         $stagesSession = Stage::pluck('session');
@@ -22,15 +27,15 @@ class StageController extends Controller
         });
         $derniereSession = $stagesSession->max(); // récupération de la session la plus grande ce qui correspond donc au dernier stage référencé
         if (!$derniereSession) {
-            $derniereSession = intval(now()->format('y') . "0001"); // si on n'a pas trouvé de session correcte alors on met la première session de l'année
+            $derniereSession = intval(now()->format('y') . "0000"); // si on n'a pas trouvé de session correcte alors on met la première session de l'année
         }
-        return view('stages.create', ['formations' => $formations, 'session' => $derniereSession]);
+        return view('stages.create', ['formations' => $formations, 'cession' => $derniereSession]);
     }
 
     public function store(StageRequest $request) {
         $finFormation = null;
         if ($request->input('fin_formation')) {
-            $finFormation = Carbon::parse($request->input('fin_formation'))->format('d/m/Y'); // on verifie que la date de fin de formation existe pour pouvoir lui changer son format
+            $finFormation = Carbon::parse($request->input('fin_formation'))->format('d/m/Y'); // on vérifie que la date de fin de formation existe pour pouvoir lui changer son format
         }
         $stage = Stage::create([
             'session' => $request->input('session'),
@@ -51,7 +56,7 @@ class StageController extends Controller
             'facture' => $request->input('facture'),
         ]);
         $stage->save();
-        return redirect("/")->with('status', "Stage créé avec succès");
+        return redirect("/stages")->with('status', "Stage créé avec succès");
     }
 
     public function stageImport(Request $request)

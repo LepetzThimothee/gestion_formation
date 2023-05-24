@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <title>Formation Import et Export</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
 <script type="text/javascript">
@@ -90,28 +90,28 @@
                 <hr />
             </form>
 
-            <form id="formToutes" action="{{ route('bergerie-import') }}" style="display: none" method="POST"
+            <form id="formToutes" action="{{ route('plan-import') }}" style="display: none" method="POST"
                   enctype="multipart/form-data">
                 @csrf
                 <input type="file" name="file" class="form-control">
                 <br>
                 <button class="btn btn-success" >
-                    Import Bergerie
+                    Tout Importer
                 </button>
                 <hr />
             </form>
 
-            <a class="btn btn-warning" href="{{ route('formation-export') }}">
+            <a class="btn btn-info" href="{{ route('formation-export') }}">
                 Export Formation
             </a>
-            <a class="btn btn-warning" href="{{ route('stage-export') }}">
+            <a class="btn btn-info" href="{{ route('stage-export') }}">
                 Export Stage
             </a>
-            <a class="btn btn-warning" href="{{ route('salarie-export') }}">
+            <a class="btn btn-info" href="{{ route('salarie-export') }}">
                 Export Salaries
             </a>
-            <a class="btn btn-warning" href="{{ route('bergerie-export') }}">
-                Export Bergerie
+            <a class="btn btn-info" href="{{ route('plan-export') }}">
+                Tout Exporter
             </a>
         </div>
     </div>

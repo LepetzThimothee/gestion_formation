@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Ajout d'un stage</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.6.1/font/bootstrap-icons.css">
     <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
 <body>
@@ -13,7 +12,7 @@
     <a class="navbar-brand" href="/">Gestion de formation</a>
 </nav>
 
-<div class="container flex-grow-1 d-flex justify-content-center">
+<div class="flex-grow-1 d-flex justify-content-center">
     <div class="text-center">
         <div class="row">
             <div class="col-lg-12 margin-tb">
@@ -31,9 +30,13 @@
             <div class="text-center">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <em>Dernier numéro de session référencé : {{$session}}</em><br>
+                        @if($cession == now()->format('y') . "0000")
+                            <em>Aucune session valide trouvée, nouvelle session : {{ $cession + 1 }}</em><br>
+                        @else
+                            <em>Dernier numéro de session référencée : {{ $cession }}</em><br>
+                        @endif
                         <strong>Numéro de session du stage :</strong>
-                        <input type="text" name="session" class="form-control" placeholder="numéro de session du stage" value="{{$session+1}}">
+                        <input type="text" name="session" class="form-control" placeholder="numéro de session du stage" value="{{ $cession + 1 }}">
                         @error('session')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -61,7 +64,7 @@
                     <div class="form-group">
                         <strong>Organisme de formation :</strong>
                         <label for="searchbar"></label>
-                        <input id="searchbar" onkeyup="recherche_formation()" type="text"
+                        <input id="searchbar" onkeyup="recherche()" type="text"
                                name="organisme" class="form-control" placeholder="organisme de formation">
                         @error('organisme')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -189,16 +192,16 @@
                         @enderror
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary ml-3">Valider</button>
+                <button type="submit" class="btn btn-success ml-3">Valider</button>
             </div>
         </form>
     </div>
-    <!-- liste des formations -->
-    <ol>
+
+    <ol class="formations-list">
+        <h3>Liste des formations</h3>
         @foreach($formations as $formation)
             <div class="d-flex align-items-center">
-                <li class="formations">{{$formation->organisme}}</li>
-                <button id="finger-icon" onclick="changerValeur(`{{$formation->organisme}}`)"><i class="bi bi-arrow-left"></i></button>
+                <li class="formations" onclick="changerValeur(`{{$formation->organisme}}`)">{{$formation->organisme}}</li>
             </div>
         @endforeach
     </ol>

@@ -50,6 +50,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $taux_horaire
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Plan> $plans
+ * @property-read int|null $plans_count
  * @method static \Database\Factories\SalarieFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Salarie newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Salarie newQuery()
@@ -101,7 +103,7 @@ use Illuminate\Database\Eloquent\Model;
 class Salarie extends Model
 {
     use HasFactory;
-
+    protected $primaryKey = 'matricule';
     protected $fillable = [
         'matricule',
         'nom',
@@ -144,4 +146,11 @@ class Salarie extends Model
         'montant_aq004',
         'taux_horaire',
     ];
+
+    public function plans()
+    {
+        return $this->belongsToMany(Plan::class)
+            ->using(PlanSalarie::class)
+            ->withPivot(['nombre_heures_realisees', 'transport', 'hebergement', 'restauration', 'total']);
+    }
 }

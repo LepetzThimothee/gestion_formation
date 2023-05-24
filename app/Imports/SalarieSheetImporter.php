@@ -17,12 +17,16 @@ class SalarieSheetImporter implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        $salarie = Salarie::whereMatricule($row['matricule'])->first();
-        if($salarie) {
-            Salarie::whereMatricule($row['matricule'])->delete();
-        }
-        return new Salarie([
-            'matricule' => $row['matricule'],
+        // on cherche si le matricule est déjà présent dans la base de données
+        //$salarie = Salarie::whereMatricule($row['matricule'])->first();
+
+        // si le salarié est trouvé on le supprime
+        //if($salarie) {
+        //    Salarie::whereMatricule($row['matricule'])->delete();
+        //}
+
+        // on retourne un nouveau salarié
+        $salarie = Salarie::updateOrCreate(['matricule' => $row['matricule']], [
             'nom' => $row['nom_de_famil_le_de_lagen'],
             'nom_jeune_fille' => $row['nom_de_jeune_fille_agent'],
             'prenom' => $row["prenom_de_l_agent"],
@@ -63,5 +67,6 @@ class SalarieSheetImporter implements ToModel, WithHeadingRow
             'montant_aq004' => $row['montant_aq004'],
             'taux_horaire' => $row['taux_hor'],
         ]);
+        return $salarie;
     }
 }

@@ -6,15 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Carbon;
 
-
 /**
  * App\Models\Stage
  *
  * @property int $id
  * @property string|null $session
- * @property int|null $formation_id
  * @property string|null $intitule
  * @property string|null $numero
+ * @property int|null $formation_id
  * @property string|null $organisme
  * @property string|null $formation_obligatoire
  * @property string|null $intra_inter
@@ -29,7 +28,7 @@ use Illuminate\Support\Carbon;
  * @property string|null $facture
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * @property-read Formation|null $formation
+ * @property-read \App\Models\Formation|null $formation
  * @method static \Database\Factories\StageFactory factory($count = null, $state = [])
  * @method static \Illuminate\Database\Eloquent\Builder|Stage newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Stage newQuery()
