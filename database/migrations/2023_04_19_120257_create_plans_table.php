@@ -15,16 +15,9 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('stage_id');
             $table->foreign('stage_id')->references('id')->on('stages');
-            $table->unsignedBigInteger('matricule');
-            $table->foreign('matricule')->references('matricule')->on('salaries');
-            $table->boolean('salaire_impute');
-            $table->integer('nombre_heures_realisees');
+            $table->boolean('salaire_impute')->default(false);
             $table->integer('nombre_stagiaires');
             $table->double('cout_pedagogique_stagiaire');
-            $table->double('transport')->default(0);
-            $table->double('hebergement')->default(0);
-            $table->double('restauration')->default(0);
-            $table->double('total');
             $table->boolean('stage_annule')->default(false);
             $table->timestamps();
         });

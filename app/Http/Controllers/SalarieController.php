@@ -11,6 +11,11 @@ use Maatwebsite\Excel\Facades\Excel;
 
 class SalarieController extends Controller
 {
+    public function index() {
+        $salaries = Salarie::all();
+        return view('salaries.index', compact('salaries'));
+    }
+
     public function salarieImport(Request $request)
     {
         $salarie = new MultiSheetSelectorImport();

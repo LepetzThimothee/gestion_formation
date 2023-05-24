@@ -5,6 +5,7 @@ html, body {
 body {
     display: flex;
     flex-direction: column;
+    background-color: #f4f4f4;
 }
 
 .flex-grow-1 {
@@ -15,15 +16,46 @@ body {
     background-color: palegoldenrod;
 }
 
-.formations{
-    display: list-item;
+.formations-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
 }
 
-#finger-icon {
-    border: none;
-    background: none;
-    padding: 0;
-    font-size: 1.5rem;
-    color: #007bff;
+.formations {
+    color: #005bff;
     cursor: pointer;
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.formations:hover {
+    background-color: #f5f5f5;
+    color: #005fbf;
+}
+
+.ui-autocomplete {
+    position: absolute;
+    z-index: 9999;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    padding: 5px;
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.ui-autocomplete li {
+    list-style-type: none;
+    padding: 3px 20px;
+    cursor: pointer;
+}
+
+.ui-autocomplete li:hover {
+    background-color: #f4f4f4;
+}
+
+.ui-helper-hidden-accessible {
+    display: none;
 }

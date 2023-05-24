@@ -92,7 +92,7 @@
                         @enderror
                     </div>
                 </div>
-                <button type="submit" class="btn btn-primary ml-3">Valider</button>
+                <button type="submit" class="btn btn-success ml-3">Valider</button>
             </div>
         </form>
     </div>
