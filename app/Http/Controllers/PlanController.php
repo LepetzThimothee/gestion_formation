@@ -25,20 +25,22 @@ class PlanController extends Controller
 
     public function create(Request $request) {
         $salaries = Salarie::all();
+        $cession = null;
         $duree = null;
         $intitule = null;
         $stage = Stage::whereSession($request->input('session'))->first();
         if($stage) {
+            $cession = $stage->session;
             $duree = $stage->duree;
             $intitule = $stage->intitule;
         }
-        return view("plan.create", ['salaries' => $salaries, 'intitule' => $intitule, 'duree' => $duree]);
+        return view("plan.create", ['salaries' => $salaries, 'cession' => $cession, 'intitule' => $intitule, 'duree' => $duree]);
     }
 
     public function store(PlanRequest $request)
     {
         // On crée un nouveau plan avec l'intitulé de stage
-        $stage = Stage::whereIntitule($request->input('intitule'))->first();
+        $stage = Stage::whereSession($request->input('session'))->first();
         $nombre_salaries = $request->input('nombre_stagiaires');
         $cout_pedagogique_stagiaire = $stage->cout_pedagogique/$nombre_salaries;
         $plan = Plan::create([

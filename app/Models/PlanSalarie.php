@@ -34,6 +34,8 @@ use Illuminate\Database\Eloquent\Relations\Pivot;
  * @method static \Illuminate\Database\Eloquent\Builder|PlanSalarie whereTotal($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PlanSalarie whereTransport($value)
  * @method static \Illuminate\Database\Eloquent\Builder|PlanSalarie whereUpdatedAt($value)
+ * @property int $salarie_matricule
+ * @method static \Illuminate\Database\Eloquent\Builder|PlanSalarie whereSalarieMatricule($value)
  * @mixin \Eloquent
  */
 class PlanSalarie extends Pivot
