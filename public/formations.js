@@ -1,4 +1,4 @@
-function recherche() {
+function recherche(cell = []) {
     let input = document.getElementById('searchbar').value; //récupère la valeur de l'élément qui possède l'id : "searchbar"
     input = input.toLowerCase() //permet de mettre toute la chaîne de caractères en minuscule
         .trim() //permet de retirer les espaces au début et à la fin de la chaîne de caractères
@@ -16,9 +16,9 @@ function recherche() {
         }
     }
 
-    let stages = document.getElementsByClassName('stages');
+    let stages = document.getElementsByClassName(cell[0]);
     for (let i = 0; i < stages.length; i++) {
-        if (!stages[i].cells[1].innerHTML.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s-/+*]/g, '')
+        if (!stages[i].cells[cell[1]].innerHTML.toLowerCase().trim().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^\w\s-/+*]/g, '')
             .includes(input)) {
             stages[i].style.display="none";
         }

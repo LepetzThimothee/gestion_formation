@@ -13,7 +13,7 @@ class SalarieController extends Controller
 {
     public function index() {
         $salaries = Salarie::all();
-        return view('salaries.index', compact('salaries'));
+        return view('salaries.index', ['salaries' => $salaries]);
     }
 
     public function salarieImport(Request $request)
