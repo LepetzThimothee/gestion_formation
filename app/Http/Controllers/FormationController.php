@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\FormationRequest;
 use App\Imports\MultiSheetSelectorImport;
 use App\Models\Formation;
+use App\Models\Salarie;
 use App\Models\Stage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Schema;
@@ -15,6 +16,11 @@ use Exception;
 
 class FormationController extends Controller
 {
+    public function index() {
+        $formations = Formation::all();
+        return view('formations.index', ['formations' => $formations]);
+    }
+
     public function create()
     {
         return view('formations.create');
