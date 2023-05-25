@@ -17,15 +17,7 @@ class SalarieSheetImporter implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        // on cherche si le matricule est déjà présent dans la base de données
-        //$salarie = Salarie::whereMatricule($row['matricule'])->first();
-
-        // si le salarié est trouvé on le supprime
-        //if($salarie) {
-        //    Salarie::whereMatricule($row['matricule'])->delete();
-        //}
-
-        // on retourne un nouveau salarié
+        // On crée un nouveau salarié si celui n'est pas trouvé dans la base de données et sinon ses informations sont mises à jour.
         $salarie = Salarie::updateOrCreate(['matricule' => $row['matricule']], [
             'nom' => $row['nom_de_famil_le_de_lagen'],
             'nom_jeune_fille' => $row['nom_de_jeune_fille_agent'],

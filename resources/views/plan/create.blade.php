@@ -64,13 +64,11 @@
             <div id="form-container" class="text-center">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <input type="hidden" name="nombre_stagiaires" value="1" id="nombre_stagiaires">
+                    <input type="hidden" name="session" value="{{ $cession }}">
                     <div class="form-group">
                         <strong>Initulé du stage :</strong>
-                        <input type="text" name="intitule" id="intitule" class="form-control @error('intitule') is-invalid @enderror" style="background-color: #c1e0fc" placeholder="intitulé du stage" value="{{ $intitule }}" onkeydown="return false;" required>
+                        <input type="text" name="intitule" id="intitule" class="form-control" style="background-color: #c1e0fc" placeholder="intitulé du stage" value="{{ $intitule }}" onkeydown="return false;" required>
                         <a href="{{ route('stages.index') }}">Liste des stages</a>
-                        @error('intitule')
-                        <div class="invalid-feedback mt-1 mb-1">{{ $message }}</div>
-                        @enderror
                     </div>
                     @if($duree)
                         <em>Durée du stage : {{ $duree }} heures</em>

@@ -23,7 +23,7 @@ class PlanRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'intitule' => 'required|string',
+            'session' => 'required|integer',
             'matricule.*' => 'required',
             'transport.*' => 'required|numeric',
             'hebergement.*' => 'required|numeric',
