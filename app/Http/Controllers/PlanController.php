@@ -18,7 +18,7 @@ use Maatwebsite\Excel\Facades\Excel;
 class PlanController extends Controller
 {
     public function index() {
-        $plans = Plan::with('salaries')->with('stage')->get();
+        $plans = Plan::with('salaries')->with('stage')->orderByDesc('id')->get();
 
         return view("plan.index", ['plans' => $plans]);
     }
