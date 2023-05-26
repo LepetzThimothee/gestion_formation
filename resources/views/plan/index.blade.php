@@ -3,13 +3,28 @@
 <head>
     <title>Plan de formation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
     <!-- Logo et lien vers l'accueil -->
     <a class="navbar-brand" href="/">Gestion de formation</a>
-    <input id="searchbar" onkeyup="recherche()" type="text"
-           class="form-control" placeholder="Recherche dans le plan">
+    <div class="input-group">
+        <label for="searchbar" class="sr-only">Recherche dans le plan</label>
+        <input id="searchbar" onkeyup="recherche()" type="text" class="form-control" placeholder="Recherche dans le plan">
+        <span class="total-totaux input-group-text" style="font-weight: bold;">Total général : {{ $totalTotaux }}</span>
+    </div>
+    <div class="dropdown">
+        <button class="code-etablissement-selectionne btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sélection établissement : Aucun
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+            <button class="dropdown-item" type="button" onclick="filtrerParCodeEtablissement('Aucun')">Aucun établissement</button>
+            @foreach($codeEtablissements as $codeEtablissement)
+                <button class="dropdown-item" type="button" onclick="filtrerParCodeEtablissement('{{ $codeEtablissement }}')">{{ $codeEtablissement }}</button>
+            @endforeach
+        </div>
+    </div>
 </nav>
 <div class="container mt-3">
     @foreach ($plans as $plan)
@@ -43,7 +58,8 @@
                     <table class="table table-bordered table-info bg-white">
                         <thead>
                         <tr>
-                            <th>Nom Prénom</th>
+                            <th>Nom Prénom [Matricule]</th>
+                            <th>Code établissement</th>
                             <th>Nombre d'heures réalisées</th>
                             <th>Transport</th>
                             <th>Hébergement</th>
@@ -55,6 +71,7 @@
                         @foreach ($plan->salaries as $salarie)
                             <tr>
                                 <td>{{ $salarie->nom }} {{ $salarie->prenom }} [{{ $salarie->matricule }}]</td>
+                                <td>{{ $salarie->code_etablissement }}</td>
                                 <td>{{ $salarie->pivot->nombre_heures_realisees }}</td>
                                 <td>{{ $salarie->pivot->transport }}</td>
                                 <td>{{ $salarie->pivot->hebergement }}</td>
@@ -69,6 +86,7 @@
         </div>
     @endforeach
 </div>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="{{asset('formations.js')}}"></script>
 </body>
 </html>
