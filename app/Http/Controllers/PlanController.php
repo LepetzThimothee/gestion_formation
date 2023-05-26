@@ -19,8 +19,14 @@ class PlanController extends Controller
 {
     public function index() {
         $plans = Plan::with('salaries')->with('stage')->orderByDesc('id')->get();
-
-        return view("plan.index", ['plans' => $plans]);
+        $codeEtablissements = Salarie::pluck('code_etablissement')->unique();
+        $totalTotaux = 0;
+        foreach ($plans as $plan) {
+            foreach ($plan->salaries as $salarie) {
+                $totalTotaux += $salarie->pivot->total;
+            }
+        }
+        return view("plan.index", ['plans' => $plans, 'codeEtablissements' => $codeEtablissements, 'totalTotaux' => number_format($totalTotaux, 2, '.', '')]);
     }
 
     public function create(Request $request) {
@@ -73,7 +79,7 @@ class PlanController extends Controller
                     'transport' => $transport,
                     'hebergement' => $hebergement,
                     'restauration' => $restauration,
-                    'total' => $total,
+                    'total' => floatval(number_format($total, 2, '.', '')),
                 ]);
             }
         }

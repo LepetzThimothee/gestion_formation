@@ -107,3 +107,40 @@ function setValidationMessage() {
 }
 
 setValidationMessage();
+
+function filtrerParCodeEtablissement(codeEtablissement) {
+    // On met à jour le contenu du span avec le code établissement sélectionné
+    const codeEtablissementBouton = document.querySelector('.code-etablissement-selectionne');
+    codeEtablissementBouton.textContent = 'Sélection établissement : ' + codeEtablissement;
+
+    // On sélectionne tous les plans de formation
+    const plans = document.querySelectorAll('.formations');
+    let totalTotaux = 0; // Variable pour stocker le total des totaux
+
+    plans.forEach(function(plan) {
+        // On sélectionne tous les salariés dans le plan
+        const salaries = plan.querySelectorAll('tbody tr');
+        let planVisible = false; // Le plan de formation est masqué par défaut
+
+        salaries.forEach(function(salarie) {
+            // On sélectionne le code d'établissement, qui se situe dans la cellule d'index 2, pour chaque salarié
+            const codeEtablissementCell = salarie.querySelector('td:nth-child(2)');
+
+            // On vérifie si le code d'établissement correspond à celui sélectionné ou si c'est "Aucun"
+            if (codeEtablissement === 'Aucun' || codeEtablissementCell.textContent.trim() === codeEtablissement) {
+                planVisible = true; //  Le plan de formation doit être affiché
+                salarie.style.display = 'table-row'; // On affiche le salarié
+                totalTotaux += parseFloat(salarie.querySelector('td:last-child').textContent); // On ajoute le total du salarié qui se trouve dans la dernière cellule
+            } else {
+                salarie.style.display = 'none'; // Sinon, on masque le salarié
+            }
+        });
+
+        // On affiche ou masque le plan si celui a des salariés affichés
+        plan.style.display = planVisible ? 'block' : 'none';
+    });
+
+    // On affiche le total des totaux pour l'établissement sélectionné
+    const totalTotauxElement = document.querySelector('.total-totaux');
+    totalTotauxElement.textContent = 'Total général : ' + totalTotaux.toFixed(2);
+}
