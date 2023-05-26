@@ -12,23 +12,14 @@ body {
     flex-grow: 1;
 }
 
-#searchbar{
-    background-color: palegoldenrod;
-}
-
-.formations-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+#validation {
+    background-color: #c1e0fc;
 }
 
 .formations {
-    color: #005bff;
     cursor: pointer;
     padding: 5px;
     border: 1px solid #ddd;
-    border-radius: 10px;
-    margin-bottom: 10px;
 }
 
 .formations:hover {

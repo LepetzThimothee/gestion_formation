@@ -24,7 +24,6 @@ class StageRequest extends FormRequest
         return [
             'session' => "required|integer",
             'intitule' => "required|string",
-            'numero' => "nullable|string",
             'formation_id' => "integer",
             'organisme' => "required|string",
             'formation_obligatoire' => "string|min:1|max:1",

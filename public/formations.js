@@ -29,7 +29,7 @@ function recherche(cell = []) {
 }
 
 function changerValeur(valeur) {
-    document.getElementById("searchbar").value = valeur;
+    document.getElementById("validation").value = valeur;
 }
 
 
@@ -95,8 +95,8 @@ function redirectToPlanCreate(row) {
 }
 
 function setValidationMessage() {
-    const input = document.getElementById("intitule");
-    const message = "Veuillez choisir un stage dans la liste ci-dessous.";
+    const input = document.getElementById("validation");
+    const message = "Veuillez choisir un élément dans la liste ci-contre.";
 
     if (input) {
         if (!input.validity.valid) {

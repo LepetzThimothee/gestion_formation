@@ -40,7 +40,6 @@ class StageController extends Controller
         $stage = Stage::create([
             'session' => $request->input('session'),
             'intitule' => $request->input('intitule'),
-            'numero' => $request->input('numero'),
             'formation_id' => Formation::whereOrganisme($request->input('organisme'))->first()->id,
             'organisme' => $request->input('organisme'),
             'formation_obligatoire' => $request->input('formation_obligatoire'),

@@ -67,7 +67,7 @@
                     <input type="hidden" name="session" value="{{ $cession }}">
                     <div class="form-group">
                         <strong>Initulé du stage :</strong>
-                        <input type="text" name="intitule" id="intitule" class="form-control" style="background-color: #c1e0fc" placeholder="intitulé du stage" value="{{ $intitule }}" onkeydown="return false;" required>
+                        <input type="text" name="intitule" id="validation" class="form-control" placeholder="intitulé du stage" value="{{ $intitule }}" onkeydown="return false;" required>
                         <a href="{{ route('stages.index') }}">Liste des stages</a>
                     </div>
                     @if($duree)
