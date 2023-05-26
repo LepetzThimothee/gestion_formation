@@ -24,8 +24,8 @@
                                 <p class="card-text">Organisme de formation : {{ $plan->stage->organisme }}</p>
                                 <p class="card-text">Coût Pédagogique : {{ $plan->stage->cout_pedagogique }}</p>
                                 <p class="card-text">Durée de la formation : {{ $plan->stage->duree }} heures</p>
-                                <p class="card-text">Date de début formation : {{ Illuminate\Support\Facades\Date::create(1900,1,0)->addDays($plan->stage->debut_formation-1)->format("d/m/y") }}</p>
-                                <p class="card-text">Date de fin formation : {{ Illuminate\Support\Facades\Date::create(1900,1,0)->addDays($plan->stage->fin_formation-1)->format("d/m/y") }}</p>
+                                <p class="card-text">Date de début formation : {{ $plan->stage->debut_formation }}</p>
+                                <p class="card-text">Date de fin formation : {{ $plan->stage->fin_formation }}</p>
                             </div>
                         </div>
                     </div>

@@ -12,8 +12,8 @@
     <a class="navbar-brand" href="/">Gestion de formation</a>
 </nav>
 
-<div class="flex-grow-1 d-flex justify-content-center">
-    <div class="text-center">
+<div class="d-flex justify-content-center align-items-start">
+    <div class="text-center mr-3">
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <h2>Création d'un stage</h2>
@@ -53,19 +53,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Numéro de stage :</strong>
-                        <input type="text" name="numero" class="form-control" placeholder="numéro de stage">
-                        @error('numero')
-                        <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
-                        @enderror
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-12">
-                    <div class="form-group">
                         <strong>Organisme de formation :</strong>
-                        <label for="searchbar"></label>
-                        <input id="searchbar" onkeyup="recherche()" type="text"
-                               name="organisme" class="form-control" placeholder="organisme de formation">
+                        <input type="text" name="organisme" id="validation" class="form-control" placeholder="organisme de formation" onkeydown="return false;">
                         @error('organisme')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -197,14 +186,21 @@
         </form>
     </div>
 
-    <ol class="formations-list">
+    <div>
         <h3>Liste des formations</h3>
-        @foreach($formations as $formation)
-            <div class="d-flex align-items-center">
-                <li class="formations" onclick="changerValeur(`{{$formation->organisme}}`)">{{$formation->organisme}}</li>
-            </div>
-        @endforeach
-    </ol>
+        <div class="mb-2">
+            <p class="text-center mb-1">Note: chercher l'organisme de formation que vous souhaitez</p>
+            <p class="text-center mb-0">Cliquez sur celui-ci pour le référencer dans le formulaire</p>
+        </div>
+        <input id="searchbar" onkeyup="recherche()" type="text" class="form-control mb-3" placeholder="Rechercher une formation">
+        <div class="scrollable-list" style="max-height: 900px; overflow-y: auto;">
+            <ul class="list-group" style="width: 450px;">
+                @foreach($formations as $formation)
+                    <li class="list-group-item formations" onclick='changerValeur("{{ $formation->organisme }}")'>{{ $formation->organisme }}</li>
+                @endforeach
+            </ul>
+        </div>
+    </div>
 </div>
 <!-- liaison javascript -->
 <script src="{{asset('formations.js')}}"></script>

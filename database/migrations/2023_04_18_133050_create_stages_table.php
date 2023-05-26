@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('session')->nullable();
             $table->string('intitule')->nullable();
-            $table->string('numero')->nullable();
             $table->unsignedBigInteger('formation_id')->nullable();
             $table->foreign('formation_id')->references('id')->on('formations')->onDelete('set null');
             $table->string('organisme')->nullable();
