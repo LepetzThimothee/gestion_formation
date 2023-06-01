@@ -4,14 +4,29 @@
     <title>Plan de formation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .hidden {
+            display: none;
+        }
+    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
     <!-- Logo et lien vers l'accueil -->
     <a class="navbar-brand" href="/">Gestion de formation</a>
+    <div class="dropdown">
+        <button class="annee-selectionne btn btn-primary dropdown-toggle" type="button" id="dropdownAnnees" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Sélection année : toutes
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownAnnees">
+            @foreach ($annees as $annee)
+                <button class="dropdown-item" type="button" onclick="filtrerPlans(document.querySelector('.code-etablissement-selectionne').textContent.trim().split(': ')[1], '{{ $annee }}')">{{ $annee }}</button>
+            @endforeach
+        </div>
+    </div>
     <div class="input-group">
         <label for="searchbar" class="sr-only">Recherche dans le plan</label>
-        <input id="searchbar" onkeyup="recherche()" type="text" class="form-control" placeholder="Recherche dans le plan">
+        <input id="searchbar" onkeyup="recherchePlan()" type="text" class="form-control" placeholder="Recherche dans le plan">
         <span class="total-totaux input-group-text" style="font-weight: bold;">Total général : {{ $totalTotaux }}</span>
     </div>
     <div class="dropdown">
@@ -19,9 +34,9 @@
             Sélection établissement : Aucun
         </button>
         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <button class="dropdown-item" type="button" onclick="filtrerParCodeEtablissement('Aucun')">Aucun établissement</button>
+            <button class="dropdown-item" type="button" onclick="filtrerPlans('Aucun', document.querySelector('.annee-selectionne').textContent.trim().split(': ')[1])">Aucun établissement</button>
             @foreach($codeEtablissements as $codeEtablissement)
-                <button class="dropdown-item" type="button" onclick="filtrerParCodeEtablissement('{{ $codeEtablissement }}')">{{ $codeEtablissement }}</button>
+                <button class="dropdown-item" type="button" onclick="filtrerPlans('{{ $codeEtablissement }}', document.querySelector('.annee-selectionne').textContent.trim().split(': ')[1])">{{ $codeEtablissement }}</button>
             @endforeach
         </div>
     </div>
@@ -39,8 +54,8 @@
                                 <p class="card-text">Organisme de formation : {{ $plan->stage->organisme }}</p>
                                 <p class="card-text">Coût Pédagogique : {{ $plan->stage->cout_pedagogique }}</p>
                                 <p class="card-text">Durée de la formation : {{ $plan->stage->duree }} heures</p>
-                                <p class="card-text">Date de début formation : {{ $plan->stage->debut_formation }}</p>
-                                <p class="card-text">Date de fin formation : {{ $plan->stage->fin_formation }}</p>
+                                <p class="card-text debut-formation">Date de début formation : {{ $plan->stage->debut_formation }}</p>
+                                <p class="card-text fin-formation">Date de fin formation : {{ $plan->stage->fin_formation }}</p>
                             </div>
                         </div>
                     </div>
@@ -88,5 +103,14 @@
 </div>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 <script src="{{asset('formations.js')}}"></script>
+<script>
+    // On attend que le DOM soit entièrement chargé
+    document.addEventListener('DOMContentLoaded', function() {
+        // On récupère la date actuelle
+        const currentDate = new Date();
+        // On filtre les numéros de session par les deux derniers chiffres des années en utilisant la fonction correspondante
+        filtrerPlans('Aucun',String(currentDate.getFullYear()));
+    });
+</script>
 </body>
 </html>

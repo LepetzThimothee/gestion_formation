@@ -10,6 +10,7 @@ use App\Models\Formation;
 use App\Models\Stage;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Schema;
 use Maatwebsite\Excel\Facades\Excel;
 
 class StageController extends Controller
@@ -60,7 +61,6 @@ class StageController extends Controller
 
     public function stageImport(Request $request)
     {
-        Stage::truncate(); // On vide la base de données formation
         $stage = new MultiSheetSelectorImport();
         $stage->onlySheets('Stage'); // On prend que la feuille qui nous interesse
         Excel::import($stage, $request->file('file'));

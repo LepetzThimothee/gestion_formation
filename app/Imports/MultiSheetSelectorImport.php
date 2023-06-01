@@ -17,6 +17,7 @@ class MultiSheetSelectorImport implements WithMultipleSheets
         $this->schema['Organismes de formation'] = new FormationSheetImporter();
         $this->schema['Salariés'] = new SalarieSheetImporter();
         $this->schema['Stage'] = new StageSheetImporter();
+        $this->schema['Plan'] = new PlanSheetImporter();
     }
     public function conditionalSheets(): array
     {

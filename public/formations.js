@@ -108,39 +108,64 @@ function setValidationMessage() {
 
 setValidationMessage();
 
-function filtrerParCodeEtablissement(codeEtablissement) {
-    // On met à jour le contenu du span avec le code établissement sélectionné
+function filtrerPlans(codeEtablissement, annee) {
     const codeEtablissementBouton = document.querySelector('.code-etablissement-selectionne');
     codeEtablissementBouton.textContent = 'Sélection établissement : ' + codeEtablissement;
 
-    // On sélectionne tous les plans de formation
+    const anneeBouton = document.querySelector('.annee-selectionne');
+    anneeBouton.textContent = 'Sélection année : ' + annee;
+
+    let recherche = document.getElementById('searchbar').value.toLowerCase().trim();
     const plans = document.querySelectorAll('.formations');
-    let totalTotaux = 0; // Variable pour stocker le total des totaux
+    let totalTotaux = 0;
 
     plans.forEach(function(plan) {
-        // On sélectionne tous les salariés dans le plan
         const salaries = plan.querySelectorAll('tbody tr');
-        let planVisible = false; // Le plan de formation est masqué par défaut
+        let planVisible = false;
+
+        const debutFormation = plan.querySelector('.debut-formation').textContent.trim();
+        const anneeDebutFormation = debutFormation.substring(debutFormation.length - 4);
+
+        const finFormation = plan.querySelector('.fin-formation').textContent.trim();
+        const anneeFinFormation = finFormation.substring(finFormation.length - 4);
 
         salaries.forEach(function(salarie) {
-            // On sélectionne le code d'établissement, qui se situe dans la cellule d'index 2, pour chaque salarié
             const codeEtablissementCell = salarie.querySelector('td:nth-child(2)');
 
-            // On vérifie si le code d'établissement correspond à celui sélectionné ou si c'est "Aucun"
-            if (codeEtablissement === 'Aucun' || codeEtablissementCell.textContent.trim() === codeEtablissement) {
-                planVisible = true; //  Le plan de formation doit être affiché
-                salarie.style.display = 'table-row'; // On affiche le salarié
-                totalTotaux += parseFloat(salarie.querySelector('td:last-child').textContent); // On ajoute le total du salarié qui se trouve dans la dernière cellule
+            if ((codeEtablissement === 'Aucun' || codeEtablissementCell.textContent.trim() === codeEtablissement) &&
+                (anneeDebutFormation <= annee && annee <= anneeFinFormation)) {
+                planVisible = true;
+                salarie.style.display = 'table-row';
+                totalTotaux += parseFloat(salarie.querySelector('td:last-child').textContent);
             } else {
-                salarie.style.display = 'none'; // Sinon, on masque le salarié
+                salarie.style.display = 'none';
             }
         });
 
-        // On affiche ou masque le plan si celui a des salariés affichés
-        plan.style.display = planVisible ? 'block' : 'none';
+        if (planVisible) {
+            let planContent = plan.textContent.toLowerCase();
+            let correspondRecherche = planContent.includes(recherche);
+
+            if (correspondRecherche) {
+                plan.style.display = 'block';
+            } else {
+                plan.style.display = 'none';
+            }
+        } else {
+            plan.style.display = 'none';
+        }
     });
 
-    // On affiche le total des totaux pour l'établissement sélectionné
     const totalTotauxElement = document.querySelector('.total-totaux');
     totalTotauxElement.textContent = 'Total général : ' + totalTotaux.toFixed(2);
+}
+
+function recherchePlan() {
+    const codeEtablissementBouton = document.querySelector('.code-etablissement-selectionne');
+    const codeEtablissement = codeEtablissementBouton.textContent.trim().split(': ')[1];
+
+    const anneeBouton = document.querySelector('.annee-selectionne');
+    const annee = anneeBouton.textContent.trim().split(': ')[1];
+
+    filtrerPlans(codeEtablissement, annee);
 }

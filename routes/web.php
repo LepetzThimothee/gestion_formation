@@ -25,7 +25,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('file-import-export', [PlanController::class, 'fileImportExport'])->name('file-import-export');
+Route::get('file-import-export', function(){return view('formation-import-export');})->name('file-import-export');
 
 Route::prefix('import')->group(function () {
     Route::post('formation', [FormationController::class, 'formationImport'])->name('formation-import');
@@ -77,4 +77,5 @@ Route::post('/update-charges-patronales', function(Request $request) {
     }
 
     // Rediriger l'utilisateur vers la page d'accueil ou une autre page de votre choix
-    return redirect('/')->with('status', "Charges patronales modifiées avec succès");});
+    return redirect('/')->with('status', "Charges patronales modifiées avec succès");
+});

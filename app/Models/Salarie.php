@@ -149,7 +149,7 @@ class Salarie extends Model
 
     public function plans()
     {
-        return $this->belongsToMany(Plan::class)
+        return $this->belongsToMany(Plan::class, 'plan_salarie', 'salarie_matricule', 'plan_id')
             ->using(PlanSalarie::class)
             ->withPivot(['nombre_heures_realisees', 'transport', 'hebergement', 'restauration', 'total']);
     }

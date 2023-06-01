@@ -20,13 +20,22 @@ class PlanController extends Controller
     public function index() {
         $plans = Plan::with('salaries')->with('stage')->orderByDesc('id')->get();
         $codeEtablissements = Salarie::pluck('code_etablissement')->unique();
+        $annees = [];
+        foreach ($plans as $plan) {
+            $dateFinFormation = date_create_from_format('d/m/Y', $plan->stage->fin_formation);
+            $anneeFinFormation = date_format($dateFinFormation, 'Y');
+            if (!in_array($anneeFinFormation, $annees)) {
+                $annees[] = $anneeFinFormation;
+            }
+        }
+
         $totalTotaux = 0;
         foreach ($plans as $plan) {
             foreach ($plan->salaries as $salarie) {
                 $totalTotaux += $salarie->pivot->total;
             }
         }
-        return view("plan.index", ['plans' => $plans, 'codeEtablissements' => $codeEtablissements, 'totalTotaux' => number_format($totalTotaux, 2, '.', '')]);
+        return view("plan.index", ['plans' => $plans, 'annees' => $annees, 'codeEtablissements' => $codeEtablissements, 'totalTotaux' => number_format($totalTotaux, 2, '.', '')]);
     }
 
     public function create(Request $request) {
@@ -87,18 +96,38 @@ class PlanController extends Controller
         return redirect("/plan")->with('status', "Plan créé avec succès");
     }
 
-    public function fileImportExport()
-    {
-        return view('formation-import-export');
-    }
-
     public function planImport(Request $request)
     {
-        Stage::truncate(); Formation::truncate(); // On vide les tables
-        $bergerie = new MultiSheetSelectorImport();
-        $bergerie->onlySheets("Organismes de formation","Salariés","Stage");
-        Excel::import($bergerie, $request->file('file'));
-        return redirect('/file-import-export')->with('status', 'Tables importées avec succès!');
+        $planImport = new MultiSheetSelectorImport();
+        $planImport->onlySheets("Organismes de formation","Stage","Salariés","Plan");
+        Excel::import($planImport, $request->file('file'));
+
+        $plans = Plan::all();
+
+        foreach ($plans as $plan) {
+            $salaries = $plan->salaries;
+            $nombreStagiaires = $salaries->count();
+            $cout_pedagogique_stagiaire = $plan->stage->cout_pedagogique/$nombreStagiaires;
+            $plan->nombre_stagiaires = $nombreStagiaires;
+            $plan->cout_pedagogique_stagiaire = $cout_pedagogique_stagiaire;
+
+            foreach ($salaries as $salarie) {
+                $transport = $salarie->pivot->transport;
+                $hebergement = $salarie->pivot->hebergement;
+                $restauration = $salarie->pivot->restauration;
+                $nombre_heures_realisees = $salarie->pivot->nombre_heures_realisees;
+                $charges_patronales = Cache::get('charges_patronales');
+
+                $total = ($charges_patronales * $salarie->taux_horaire * $nombre_heures_realisees) + $cout_pedagogique_stagiaire + $transport + $hebergement + $restauration;
+
+                $salarie->pivot->total = floatval(number_format($total, 2, '.', ''));
+                $salarie->pivot->save();
+            }
+
+            $plan->save();
+        }
+
+        return redirect('/file-import-export')->with('status', 'Plan importé avec succès!');
     }
 
     public function planExport()

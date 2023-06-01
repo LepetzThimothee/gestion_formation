@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('stages', function (Blueprint $table) {
             $table->id();
-            $table->string('session')->nullable();
+            $table->string('session')->unique()->nullable();
             $table->string('intitule')->nullable();
             $table->unsignedBigInteger('formation_id')->nullable();
             $table->foreign('formation_id')->references('id')->on('formations')->onDelete('set null');

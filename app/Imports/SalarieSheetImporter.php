@@ -6,10 +6,21 @@ use App\Models\Salarie;
 use Maatwebsite\Excel\Concerns\Importable;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use Maatwebsite\Excel\Concerns\WithUpserts;
 use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 
-class SalarieSheetImporter implements ToModel, WithHeadingRow
+class SalarieSheetImporter implements ToModel, WithHeadingRow, WithUpserts
 {
+    /**
+     * Retourne la clé unique utilisée pour les opérations de mise à jour ou d'insertion.
+     *
+     * @return string|array
+     */
+    public function uniqueBy()
+    {
+        return 'matricule';
+    }
+
     /**
     * @param array $row
     *
@@ -17,8 +28,8 @@ class SalarieSheetImporter implements ToModel, WithHeadingRow
     */
     public function model(array $row)
     {
-        // On crée un nouveau salarié si celui n'est pas trouvé dans la base de données et sinon ses informations sont mises à jour.
-        $salarie = Salarie::updateOrCreate(['matricule' => $row['matricule']], [
+        return new Salarie([
+            'matricule' => $row['matricule'],
             'nom' => $row['nom_de_famil_le_de_lagen'],
             'nom_jeune_fille' => $row['nom_de_jeune_fille_agent'],
             'prenom' => $row["prenom_de_l_agent"],
