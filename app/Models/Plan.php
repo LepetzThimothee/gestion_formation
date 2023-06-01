@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * App\Models\Plan
@@ -43,11 +45,11 @@ class Plan extends Model
         'stage_annule',
     ];
 
-    public function stage() {
+    public function stage(): BelongsTo {
         return $this->belongsTo(Stage::class);
     }
 
-    public function salaries()
+    public function salaries(): BelongsToMany
     {
         return $this->belongsToMany(Salarie::class)
             ->using(PlanSalarie::class)

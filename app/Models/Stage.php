@@ -79,4 +79,9 @@ class Stage extends Model
     public function formation() {
         return $this->belongsTo(Formation::class);
     }
+
+    public function plans()
+    {
+        return $this->hasMany(Plan::class);
+    }
 }

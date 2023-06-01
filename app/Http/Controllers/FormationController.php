@@ -45,12 +45,9 @@ class FormationController extends Controller
      */
     public function formationImport(Request $request)
     {
-        Schema::disableForeignKeyConstraints(); // On retire les contraintes de clé étrangère pour pouvoir vider les données de formation
-        Formation::truncate(); // On vide la base de données formation
         $formation = new MultiSheetSelectorImport();
         $formation->onlySheets('Organismes de formation'); // On prend que la feuille qui nous interesse
         Excel::import($formation, $request->file('file'));
-        Schema::enableForeignKeyConstraints(); // On n'oublie pas de remettre les contraintes de clé étrangère
         return redirect('/file-import-export')->with('status', 'Formations Importés avec succès!');
     }
 

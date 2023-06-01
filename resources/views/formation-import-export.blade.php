@@ -53,7 +53,7 @@
             </label>
             <label for="chkToutes">
                 <input type="radio" id="chkToutes" name="chkFormulaire" onclick="ShowHideForm()" />
-                Toutes
+                Plan
             </label>
             <hr />
 
@@ -96,7 +96,7 @@
                 <input type="file" name="file" class="form-control">
                 <br>
                 <button class="btn btn-success" >
-                    Tout Importer
+                    Import Plan
                 </button>
                 <hr />
             </form>

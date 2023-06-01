@@ -42,9 +42,11 @@ class PlanSalarie extends Pivot
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     protected $fillable = [
         'plan_id',
-        'matricule',
+        'salarie_matricule',
         'nombre_heures_realisees',
         'transport',
         'hebergement',
@@ -59,6 +61,6 @@ class PlanSalarie extends Pivot
 
     public function salarie()
     {
-        return $this->belongsTo(Salarie::class, 'salarie_matricule');
+        return $this->belongsTo(Salarie::class, 'salarie_matricule', 'matricule');
     }
 }
