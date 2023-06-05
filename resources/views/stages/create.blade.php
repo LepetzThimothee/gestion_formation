@@ -17,7 +17,7 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <h2>Création d'un stage</h2>
-                <a class="btn btn-primary" href="/"> Retour</a>
+                <a class="btn btn-primary" onclick="history.back()">Retour</a>
             </div>
         </div>
         @if(session('status'))

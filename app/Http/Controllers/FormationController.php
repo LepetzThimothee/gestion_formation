@@ -21,6 +21,11 @@ class FormationController extends Controller
         return view('formations.index', ['formations' => $formations]);
     }
 
+    public function show($id) {
+        $formation = Formation::whereId($id)->first();
+        return view('formations.show', ['formation' => $formation]);
+    }
+
     public function create()
     {
         return view('formations.create');
@@ -38,6 +43,43 @@ class FormationController extends Controller
         ]);
         $formation->save();
         return redirect(route("stages.create"))->with('status', "Formation créée avec succès");
+    }
+
+    public function edit(Formation $formation)
+    {
+        return view('formations.edit', ['formation' => $formation]);
+    }
+
+    public function update(FormationRequest $request, Formation $formation)
+    {
+        $formation->organisme = $request->input('organisme');
+        $formation->telephone = $request->input('telephone');
+        $formation->email = $request->input('email');
+        $formation->numero_declaration_existence = $request->input('numero_declaration_existence');
+        $formation->siret = $request->input('siret');
+        $formation->adresse = $request->input('adresse');
+        $formation->interlocuteur = $request->input('interlocuteur');
+        $formation->save();
+
+        return redirect(route("formations.index"))->with('status', "Formation mise à jour avec succès");
+    }
+
+    public function destroy($id)
+    {
+        $formation = Formation::findOrFail($id);
+        $stages = $formation->stages;
+        // Vérifier si des stages référencent cette formation
+        if ($stages->count() > 0) {
+            $stageInfo = $stages->map(function($stage) {
+                return "(Numéro de session : {$stage->session}, Intitulé : {$stage->intitule})";
+            })->implode(' | ');
+
+            return redirect(route('formations.index'))->with('error', "La formation ne peut pas être supprimée car elle est associée aux stages suivants : $stageInfo");
+        }
+        // Supprimer la formation
+        $formation->delete();
+
+        return redirect(route('formations.index'))->with('status', 'Formation supprimée avec succès.');
     }
 
     /**
