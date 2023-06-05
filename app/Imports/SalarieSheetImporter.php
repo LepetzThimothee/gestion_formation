@@ -3,14 +3,22 @@
 namespace App\Imports;
 
 use App\Models\Salarie;
-use Maatwebsite\Excel\Concerns\Importable;
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
-use Maatwebsite\Excel\Imports\HeadingRowFormatter;
 
 class SalarieSheetImporter implements ToModel, WithHeadingRow, WithUpserts
 {
+    public function intToDate($val) {
+        if (is_numeric($val)) {
+            $val = Carbon::create(1900,1,0)
+                ->addDays($val-1) // On ajoute le nombre de jours donné à 01/01/1900 qui est le système de date de Excel
+                ->format("d/m/Y");
+        }
+        return $val;
+    }
+
     /**
      * Retourne la clé unique utilisée pour les opérations de mise à jour ou d'insertion.
      *
@@ -35,7 +43,7 @@ class SalarieSheetImporter implements ToModel, WithHeadingRow, WithUpserts
             'prenom' => $row["prenom_de_l_agent"],
             'code_etablissement' => $row['code_etablis_sement'],
             'sexe' => $row["code_sexe_de_lagent"],
-            'naissance' => $row['date_de_naissance'],
+            'naissance' => $this->intToDate($row['date_de_naissance']),
             'age' => $row['age_salarie'],
             'numero_secu' => $row['num_securite_sociale'],
             'domiciliation_bancaire' => $row['domiciliatio_n_bancaire'],
@@ -54,9 +62,9 @@ class SalarieSheetImporter implements ToModel, WithHeadingRow, WithUpserts
             'unite' => $row['unite'],
             'lib_unite' => $row['lib_unite'],
             'section_analytique' => $row['section_analytique'],
-            'debut_anciennete_groupe' => $row['debut_ancien_nete_groupe'],
-            'debut_contrat' => $row['date_debut_contrat'],
-            'fin_contrat' => $row['date_fin_contrat'],
+            'debut_anciennete_groupe' => $this->intToDate($row['debut_ancien_nete_groupe']),
+            'debut_contrat' => $this->intToDate($row['date_debut_contrat']),
+            'fin_contrat' => $this->intToDate($row['date_fin_contrat']),
             'filiere' => $row['filiere'],
             'sous_filiere' => $row['sous_filiere'],
             'metier' => $row['metier'],

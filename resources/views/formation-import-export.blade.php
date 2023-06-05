@@ -25,6 +25,20 @@
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
     <!-- Logo et lien vers l'accueil -->
     <a class="navbar-brand" href="/">Gestion de formation</a>
+    <form class="ml-auto" method="POST" action="{{ url('/update-charges-patronales') }}">
+        @csrf
+        <div class="input-group">
+            <div class="input-group-prepend">
+                    <span class="input-group-text" style="color: black">
+                        <strong>Charges patronales :</strong>
+                    </span>
+            </div>
+            <input type="number" step="0.01" name="charges_patronales" placeholder="charges patronales" value="{{ Illuminate\Support\Facades\Cache::get('charges_patronales') }}" class="form-control">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Valider</button>
+            </div>
+        </div>
+    </form>
 </nav>
 <div class="container flex-grow-1 d-flex justify-content-center align-items-center">
     <div class="card bg-light mt-3">
@@ -92,6 +106,7 @@
 
             <form id="formToutes" action="{{ route('plan-import') }}" style="display: none" method="POST"
                   enctype="multipart/form-data">
+                <em>Note : l'import du plan peut prendre une trentaine de secondes</em>
                 @csrf
                 <input type="file" name="file" class="form-control">
                 <br>

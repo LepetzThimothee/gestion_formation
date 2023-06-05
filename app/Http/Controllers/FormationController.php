@@ -22,7 +22,7 @@ class FormationController extends Controller
     }
 
     public function show($id) {
-        $formation = Formation::whereId($id)->first();
+        $formation = Formation::findOrFail($id);
         return view('formations.show', ['formation' => $formation]);
     }
 
@@ -68,7 +68,7 @@ class FormationController extends Controller
     {
         $formation = Formation::findOrFail($id);
         $stages = $formation->stages;
-        // Vérifier si des stages référencent cette formation
+        // On vérifie si des stages référencent cette formation
         if ($stages->count() > 0) {
             $stageInfo = $stages->map(function($stage) {
                 return "(Numéro de session : {$stage->session}, Intitulé : {$stage->intitule})";
@@ -76,7 +76,7 @@ class FormationController extends Controller
 
             return redirect(route('formations.index'))->with('error', "La formation ne peut pas être supprimée car elle est associée aux stages suivants : $stageInfo");
         }
-        // Supprimer la formation
+        // On supprime la formation
         $formation->delete();
 
         return redirect(route('formations.index'))->with('status', 'Formation supprimée avec succès.');

@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Carbon;
+use Carbon\Carbon;
 
 /**
  * App\Models\Stage
@@ -74,6 +74,11 @@ class Stage extends Model
         'convocation',
         'attestation',
         'facture',
+    ];
+
+    protected array $dates = [
+        'debut_formation',
+        'fin_formation',
     ];
 
     public function formation() {
