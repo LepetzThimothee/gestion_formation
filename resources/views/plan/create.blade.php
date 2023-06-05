@@ -48,7 +48,7 @@
         <div class="row">
             <div class="col-lg-12 margin-tb">
                 <h2>La gestion du plan</h2>
-                <a class="btn btn-primary" href="/"> Retour</a>
+                <a class="btn btn-primary" href="/">Accueil</a>
             </div>
         </div>
         @if(session('status'))

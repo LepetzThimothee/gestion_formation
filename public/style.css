@@ -8,6 +8,18 @@ body {
     background-color: #f4f4f4;
 }
 
+.btn-edit {
+    background-color: #f8f9fa; /* Couleur de fond */
+    border-color: #f8f9fa; /* Couleur de la bordure */
+    color: #1e285d; /* Couleur du texte */
+}
+
+.btn-delete {
+    background-color: #f8f9fa; /* Couleur de fond */
+    border-color: #f8f9fa; /* Couleur de la bordure */
+    color: #dc3545; /* Couleur du texte */
+}
+
 .flex-grow-1 {
     flex-grow: 1;
 }
