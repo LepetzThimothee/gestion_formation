@@ -48,7 +48,7 @@ return new class extends Migration
             $table->string('rpps')->nullable();
             $table->string('adeli')->nullable();
             $table->string('cpn');
-            $table->integer('taux_emploi');
+            $table->double('taux_emploi');
             $table->double('horaire_contrat');
             $table->double('montant_aq004');
             $table->double('taux_horaire');

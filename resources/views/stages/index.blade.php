@@ -3,6 +3,7 @@
 <head>
     <title>Liste des Stages</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
@@ -15,6 +16,16 @@
 <div class="mx-4 mt-4">
     <em>Note : cliquer sur un stage pour commencer le plan à partir de celui-ci</em>
     <h1>Liste des Stages</h1>
+    @if(session('status'))
+        <div class="alert alert-success mb-1 mt-1">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger mb-1 mt-1">
+            {{ session('error') }}
+        </div>
+    @endif
     <a href="{{ route('stages.create') }}">Vous ne trouvez pas un stage ? Créez-le !</a>
     <div class="table-responsive">
         <table class="table table-striped table-bordered table-sm table-hover clickable-row">
@@ -34,6 +45,8 @@
             <th>Convocation</th>
             <th>Attestation</th>
             <th>Facture</th>
+            <th>Edition</th>
+            <th>Suppression</th>
         </tr>
         </thead>
         <tbody>
@@ -45,22 +58,24 @@
                 <td>{{ $stage->formation_obligatoire }}</td>
                 <td>{{ $stage->intra_inter }}</td>
                 <td>{{ $stage->cout_pedagogique }}</td>
-                @if(is_numeric($stage->debut_formation))
-                    <td>{{ Illuminate\Support\Facades\Date::create(1900,1,0)->addDays($stage->debut_formation-1)->format('d/m/Y') }}</td>
-                @else
-                    <td>{{ $stage->debut_formation }}</td>
-                @endif
-                @if(is_numeric($stage->fin_formation))
-                    <td>{{ Illuminate\Support\Facades\Date::create(1900,1,0)->addDays($stage->fin_formation-1)->format('d/m/Y') }}</td>
-                @else
-                    <td>{{ $stage->fin_formation }}</td>
-                @endif
+                <td>{{ $stage->debut_formation }}</td>
+                <td>{{ $stage->fin_formation }}</td>
                 <td>{{ $stage->duree }}</td>
                 <td>{{ $stage->opco }}</td>
                 <td>{{ $stage->convention }}</td>
                 <td>{{ $stage->convocation }}</td>
                 <td>{{ $stage->attestation }}</td>
                 <td>{{ $stage->facture }}</td>
+                <td>
+                    <a href="{{ route('stages.edit', $stage->id) }}" class="btn btn-edit btn-sm mr-2">
+                        Modifier
+                    </a>
+                </td>
+                <td>
+                    <a href="{{ route('stages.show', $stage->id) }}" class="btn btn-delete btn-sm">
+                        Supprimer
+                    </a>
+                </td>
             </tr>
         @endforeach
         </tbody>

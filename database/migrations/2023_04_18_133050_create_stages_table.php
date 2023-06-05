@@ -20,10 +20,10 @@ return new class extends Migration
             $table->string('organisme')->nullable();
             $table->string('formation_obligatoire')->nullable();
             $table->string('intra_inter',1)->nullable();
-            $table->string('cout_pedagogique')->nullable();
-            $table->string('debut_formation')->nullable();
-            $table->string('fin_formation')->nullable();
-            $table->string('duree')->nullable();
+            $table->double('cout_pedagogique')->nullable();
+            $table->date('debut_formation')->nullable();
+            $table->date('fin_formation')->nullable();
+            $table->integer('duree')->nullable();
             $table->string('opco')->nullable();
             $table->string('convention')->nullable();
             $table->string('convocation')->nullable();
