@@ -5,13 +5,21 @@ namespace App\Imports;
 use App\Models\Formation;
 use App\Models\Stage;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 
 class StageSheetImporter implements ToModel, WithHeadingRow, WithUpserts
 {
-    public function getFormationId($val) {
+    /**
+     * Récupère l'identifiant de formation correspondant à un organisme
+     *
+     * @param mixed $val L'organisme de formation
+     * @return int|null L'identifiant de formation correspondant ou null si aucun organisme n'est trouvé
+     */
+    public function getFormationId(mixed $val): int|null
+    {
         $formationId = null;
         if ($val != null) {
             $formation = Formation::whereOrganisme($val)->get();
@@ -20,6 +28,12 @@ class StageSheetImporter implements ToModel, WithHeadingRow, WithUpserts
         return $formationId;
     }
 
+    /**
+     * Convertit une valeur en date Excel en format date
+     *
+     * @param mixed $val La valeur à convertir
+     * @return mixed La valeur convertie en format date (d/m/Y) ou la valeur d'origine si elle n'est pas numérique
+     */
     public function intToDate($val) {
         if (is_numeric($val)) {
             $val = Carbon::create(1900,1,0)
@@ -59,19 +73,20 @@ class StageSheetImporter implements ToModel, WithHeadingRow, WithUpserts
     /**
      * Retourne la clé unique utilisée pour les opérations de mise à jour ou d'insertion.
      *
-     * @return string|array
+     * @return string
      */
-    public function uniqueBy()
+    public function uniqueBy(): string
     {
         return 'session';
     }
 
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
+     * Crée une instance du modèle Stage à partir d'un tableau de données qui représente les lignes du fichier Excel
+     *
+     * @param array $row
+     * @return Model|null
     */
-    public function model(array $row)
+    public function model(array $row): Stage|null
     {
         if (!is_numeric($row['cession'])) {
             return null;

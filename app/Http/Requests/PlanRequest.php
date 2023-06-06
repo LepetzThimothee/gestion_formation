@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\ValidationRule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class PlanRequest extends FormRequest
@@ -9,6 +10,7 @@ class PlanRequest extends FormRequest
     /**
      * Détermine si l'utilisateur est autorisé à effectuer cette demande.
      *
+     * @return bool
      */
     public function authorize(): bool
     {
@@ -18,7 +20,7 @@ class PlanRequest extends FormRequest
     /**
      * Obtenez les règles de validation qui s'appliquent à la demande.
      *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * @return array<string, ValidationRule|array|string>
      */
     public function rules(): array
     {
@@ -34,11 +36,11 @@ class PlanRequest extends FormRequest
     }
 
     /**
-     * Obtenez le message d'erreur pour la rècle de validation défini.
+     * Obtenez le message d'erreur pour la règle de validation défini.
      *
      * @return array
      */
-    public function messages()
+    public function messages(): array
     {
         return [
             'required' => 'Le champ :attribute est obligatoire.',

@@ -8,10 +8,8 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
-    <!-- Logo et lien vers l'accueil -->
     <a class="navbar-brand" href="/">Gestion de formation</a>
 </nav>
-
 <div class="d-flex justify-content-center align-items-start">
     <div class="text-center mr-3">
         <div class="row">
@@ -31,8 +29,8 @@
             <div class="text-center">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Numéro de session du stage :</strong>
-                        <input type="text" name="session" class="form-control" placeholder="numéro de session du stage" value="{{ $stage->session }}">
+                        <label for="session"><strong>Numéro de session du stage :</strong></label>
+                        <input id="session" type="text" name="session" class="form-control" placeholder="numéro de session du stage" value="{{ $stage->session }}">
                         @error('session')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -40,8 +38,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Intitulé du stage :</strong>
-                        <input type="text" name="intitule" class="form-control" placeholder="intitulé du stage" value="{{ $stage->intitule }}">
+                        <label for="intitule"><strong>Intitulé du stage :</strong></label>
+                        <input id="intitule" type="text" name="intitule" class="form-control" placeholder="intitulé du stage" value="{{ $stage->intitule }}">
                         @error('intitule')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -49,7 +47,7 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Organisme de formation :</strong>
+                        <label for="validation"><strong>Organisme de formation :</strong></label>
                         <input type="text" name="organisme" id="validation" class="form-control" placeholder="organisme de formation" onkeydown="return false;" value="{{ $stage->organisme }}">
                         @error('organisme')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
@@ -83,8 +81,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Coût pédagogique :</strong>
-                        <input type="text" name="cout_pedagogique" class="form-control" placeholder="coût pedagogique" value="{{ $stage->cout_pedagogique }}">
+                        <label for="cout_pedagogique"><strong>Coût pédagogique :</strong></label>
+                        <input id="cout_pedagogique" type="text" name="cout_pedagogique" class="form-control" placeholder="coût pedagogique" value="{{ $stage->cout_pedagogique }}">
                         @error('cout_pedagogique')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -92,8 +90,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Date de début de formation :</strong>
-                        <input type="date" name="debut_formation" class="form-control" placeholder="date de début de formation" value="{{ date('Y-m-d', strtotime($stage->debut_formation)) }}">
+                        <label for="debut_formation"><strong>Date de début de formation :</strong></label>
+                        <input id="debut_formation" type="date" name="debut_formation" class="form-control" placeholder="date de début de formation" value="{{ date('Y-m-d', strtotime($stage->debut_formation)) }}">
                         @error('debut_formation')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -101,16 +99,16 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Date de fin de formation :</strong>
-                        <input type="date" name="fin_formation" class="form-control" placeholder="date de fin de formation" value="{{ $stage->fin_formation ? date('Y-m-d', strtotime($stage->fin_formation)) : '' }}">                        @error('fin_formation')
+                        <label for="fin_formation"><strong>Date de fin de formation :</strong></label>
+                        <input id="fin_formation" type="date" name="fin_formation" class="form-control" placeholder="date de fin de formation" value="{{ $stage->fin_formation ? date('Y-m-d', strtotime($stage->fin_formation)) : '' }}">                        @error('fin_formation')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Durée de formation :</strong>
-                        <input type="text" name="duree" class="form-control" placeholder="durée de formation" value="{{ $stage->duree }}">
+                        <label for="duree"><strong>Durée de formation :</strong></label>
+                        <input id="duree" type="text" name="duree" class="form-control" placeholder="durée de formation" value="{{ $stage->duree }}">
                         @error('duree')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -182,13 +180,13 @@
             </div>
         </form>
     </div>
-
     <div>
         <h3>Liste des formations</h3>
         <div class="mb-2">
             <p class="text-center mb-1">Note: chercher l'organisme de formation que vous souhaitez</p>
             <p class="text-center mb-0">Cliquez sur celui-ci pour le référencer dans le formulaire</p>
         </div>
+        <label for="searchbar">Barre de recherche des formations</label>
         <input id="searchbar" onkeyup="recherche()" type="text" class="form-control mb-3" placeholder="Rechercher une formation">
         <div class="scrollable-list" style="max-height: 900px; overflow-y: auto;">
             <ul class="list-group" style="width: 450px;">

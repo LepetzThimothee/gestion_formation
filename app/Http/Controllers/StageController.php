@@ -3,30 +3,49 @@
 namespace App\Http\Controllers;
 
 use App\Exports\StageSheetExporter;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\StageRequest;
 use App\Imports\MultiSheetSelectorImport;
 use App\Models\Formation;
 use App\Models\Stage;
 use Carbon\Carbon;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class StageController extends Controller
 {
-    public function index() {
+    /**
+     * Affiche la liste des stages.
+     *
+     * @return View
+     */
+    public function index(): View
+    {
         $stages = Stage::all();
         return view('stages.index', ['stages' => $stages]);
     }
 
-    public function show($id)
+    /**
+     * Affiche les détails d'un stage.
+     *
+     * @param int $id
+     * @return View
+     */
+    public function show(int $id): View
     {
         $stage = Stage::findOrFail($id);
         return view('stages.show', ['stage' => $stage]);
     }
 
-    public function create() {
+    /**
+     * Affiche le formulaire de création d'un stage.
+     *
+     * @return View
+     */
+    public function create(): View
+    {
         $formations = Formation::all();
         $stagesSession = Stage::pluck('session');
         $derniereSession = $stagesSession->max(); // récupération de la session la plus grande ce qui correspond donc au dernier stage référencé
@@ -36,7 +55,14 @@ class StageController extends Controller
         return view('stages.create', ['formations' => $formations, 'cession' => $derniereSession]);
     }
 
-    public function store(StageRequest $request) {
+    /**
+     * Enregistre un nouveau stage.
+     *
+     * @param StageRequest $request
+     * @return RedirectResponse
+     */
+    public function store(StageRequest $request): RedirectResponse
+    {
         $finFormation = null;
         if ($request->input('fin_formation')) {
             $finFormation = Carbon::parse($request->input('fin_formation'))->format('d/m/Y'); // on vérifie que la date de fin de formation existe pour pouvoir lui changer son format
@@ -62,13 +88,26 @@ class StageController extends Controller
         return redirect("/stages")->with('status', "Stage créé avec succès");
     }
 
-    public function edit(Stage $stage)
+    /**
+     * Affiche le formulaire d'édition d'un stage.
+     *
+     * @param Stage $stage
+     * @return View
+     */
+    public function edit(Stage $stage): View
     {
         $formations = Formation::all();
         return view('stages.edit', ['stage' => $stage, 'formations' => $formations]);
     }
 
-    public function update(StageRequest $request, Stage $stage)
+    /**
+     * Met à jour un stage existant.
+     *
+     * @param StageRequest $request
+     * @param Stage $stage
+     * @return RedirectResponse
+     */
+    public function update(StageRequest $request, Stage $stage): RedirectResponse
     {
         $finFormation = null;
         if ($request->input('fin_formation')) {
@@ -94,12 +133,18 @@ class StageController extends Controller
         return redirect("/stages")->with('status', "Stage mis à jour avec succès");
     }
 
-    public function destroy($id)
+    /**
+     * Supprime un stage.
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function destroy(int $id): RedirectResponse
     {
         $stage = Stage::findOrFail($id);
         $plans = $stage->plans;
         // On vérifie si le stage est référencé dans le plan
-        if ($plans->count() > 0) {
+        if ($plans) {
             return redirect(route('stages.index'))->with('error', "Le stage ne peut pas être supprimé car il est référencé dans le plan");
         }
         // On supprime le stage
@@ -107,18 +152,30 @@ class StageController extends Controller
         return redirect(route('stages.index'))->with('status', "Stage supprimé avec succès");
     }
 
-    public function stageImport(Request $request)
+    /**
+     * Importe les stages à partir d'un fichier Excel.
+     *
+     * @param Request $request
+     * @return RedirectResponse
+     */
+    public function stageImport(Request $request): RedirectResponse
     {
-        $stage = new MultiSheetSelectorImport();
-        $stage->onlySheets('Stage'); // On prend que la feuille qui nous interesse
-        Excel::import($stage, $request->file('file'));
-        return redirect('/file-import-export')->with('status', 'Stages Importés avec succès!');
+        if ($request->hasFile('file')) {
+            $stage = new MultiSheetSelectorImport();
+            $stage->onlySheets('Stage'); // On prend que la feuille qui nous interesse
+            Excel::import($stage, $request->file('file'));
+            return redirect('/file-import-export')->with('status', 'Stages Importés avec succès!');
+        } else {
+            return redirect('/file-import-export')->with('error', 'Aucun fichier n\'a été sélectionné.');
+        }
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * Exporte les stages vers un fichier Excel.
+     *
+     * @return BinaryFileResponse
      */
-    public function stageExport(Request $request)
+    public function stageExport(): BinaryFileResponse
     {
         return Excel::download(new StageSheetExporter, 'stage.xlsx');
     }

@@ -4,12 +4,19 @@ namespace App\Imports;
 
 use App\Models\Salarie;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 
 class SalarieSheetImporter implements ToModel, WithHeadingRow, WithUpserts
 {
+    /**
+     * Convertit une valeur en date Excel en format date
+     *
+     * @param mixed $val La valeur à convertir
+     * @return mixed La valeur convertie en format date (d/m/Y) ou la valeur d'origine si elle n'est pas numérique
+     */
     public function intToDate($val) {
         if (is_numeric($val)) {
             $val = Carbon::create(1900,1,0)
@@ -22,19 +29,20 @@ class SalarieSheetImporter implements ToModel, WithHeadingRow, WithUpserts
     /**
      * Retourne la clé unique utilisée pour les opérations de mise à jour ou d'insertion.
      *
-     * @return string|array
+     * @return string
      */
-    public function uniqueBy()
+    public function uniqueBy(): string
     {
         return 'matricule';
     }
 
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $row)
+     * Crée une instance du modèle Salarié à partir d'un tableau de données qui représente les lignes du fichier Excel
+     *
+     * @param array $row
+     * @return Salarie|null
+     */
+    public function model(array $row): Salarie|null
     {
         return new Salarie([
             'matricule' => $row['matricule'],
@@ -78,6 +86,5 @@ class SalarieSheetImporter implements ToModel, WithHeadingRow, WithUpserts
             'montant_aq004' => $row['montant_aq004'],
             'taux_horaire' => $row['taux_hor'],
         ]);
-        return $salarie;
     }
 }

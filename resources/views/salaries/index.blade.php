@@ -2,11 +2,10 @@
 <html lang="fr">
 <head>
     <title>Liste des Salariés</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
-    <!-- Logo et lien vers l'accueil -->
     <a class="navbar-brand" href="/">Gestion de formation</a>
     <label for="searchbar"></label>
     <input id="searchbar" onkeyup="recherche(['liste-salaries', 1])" type="text"

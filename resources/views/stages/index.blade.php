@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta charset="UTF-8">
     <title>Liste des Stages</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
-    <!-- Logo et lien vers l'accueil -->
     <a class="navbar-brand" href="/">Gestion de formation</a>
     <label for="searchbar"></label>
-    <input id="searchbar" onkeyup="recherche(['liste-stages', 1])" type="text"
-           class="form-control" placeholder="intitulé de formation">
+    <input id="searchbar" onkeyup="recherche(['liste-stages', 1])" type="text" class="form-control" placeholder="intitulé de formation">
 </nav>
 <div class="mx-4 mt-4">
     <em>Note : cliquer sur un stage pour commencer le plan à partir de celui-ci</em>

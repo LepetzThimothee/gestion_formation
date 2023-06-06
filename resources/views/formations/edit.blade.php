@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <title>Édition d'une formation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
-
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
-    <!-- Logo et lien vers l'accueil -->
     <a class="navbar-brand" href="/">Gestion de formation</a>
 </nav>
 <div class="container flex-grow-1 d-flex justify-content-center align-items-center">
@@ -32,8 +29,8 @@
             <div class="text-center">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Nom de l'organisme de formation :</strong>
-                        <input type="text" name="organisme" class="form-control" placeholder="organisme de formation" value="{{ $formation->organisme }}">
+                        <label for="organisme"><strong>Nom de l'organisme de formation :</strong></label>
+                        <input id="organisme" type="text" name="organisme" class="form-control" placeholder="organisme de formation" value="{{ $formation->organisme }}">
                         @error('organisme')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -41,8 +38,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Coordonnée téléphonique :</strong>
-                        <input type="text" name="telephone" class="form-control" placeholder="coordonnée téléphonique" value="{{ $formation->telephone }}">
+                        <label for="telephone"><strong>Coordonnée téléphonique :</strong></label>
+                        <input id="telephone" type="text" name="telephone" class="form-control" placeholder="coordonnée téléphonique" value="{{ $formation->telephone }}">
                         @error('telephone')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -50,8 +47,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Adresse email :</strong>
-                        <input type="email" name="email" class="form-control" placeholder="adresse email" value="{{ $formation->email }}">
+                        <label for="email"><strong>Adresse email :</strong></label>
+                        <input id="email" type="email" name="email" class="form-control" placeholder="adresse email" value="{{ $formation->email }}">
                         @error('email')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -59,8 +56,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Numéro déclaration existence :</strong>
-                        <input type="text" name="numero_declaration_existence" class="form-control" placeholder="numéro déclaration existence" value="{{ $formation->numero_declaration_existence }}">
+                        <label for="numero_declaration_existence"><strong>Numéro déclaration existence :</strong></label>
+                        <input id="numero_declaration_existence" type="text" name="numero_declaration_existence" class="form-control" placeholder="numéro déclaration existence" value="{{ $formation->numero_declaration_existence }}">
                         @error('numero_declaration_existence')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -68,8 +65,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Numéro de SIRET :</strong>
-                        <input type="number" name="siret" class="form-control" placeholder="numéro de siret" value="{{ $formation->siret }}">
+                        <label for="siret"><strong>Numéro de SIRET :</strong></label>
+                        <input id="siret" type="number" name="siret" class="form-control" placeholder="numéro de siret" value="{{ $formation->siret }}">
                         @error('siret')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -77,8 +74,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Adresse :</strong>
-                        <input type="text" name="adresse" class="form-control" placeholder="adresse" value="{{ $formation->adresse }}">
+                        <label for="adresse"><strong>Adresse :</strong></label>
+                        <input id="adresse" type="text" name="adresse" class="form-control" placeholder="adresse" value="{{ $formation->adresse }}">
                         @error('adresse')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -86,8 +83,8 @@
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
-                        <strong>Interlocuteur :</strong>
-                        <input type="text" name="interlocuteur" class="form-control" placeholder="interlocuteur" value="{{ $formation->interlocuteur }}">
+                        <label for="interlocuteur"><strong>Interlocuteur :</strong></label>
+                        <input id="interlocuteur" type="text" name="interlocuteur" class="form-control" placeholder="interlocuteur" value="{{ $formation->interlocuteur }}">
                         @error('interlocuteur')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
