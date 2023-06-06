@@ -67,7 +67,7 @@
                     <td>{{ $salarie->nom_jeune_fille }}</td>
                     <td>{{ $salarie->code_etablissement }}</td>
                     <td>{{ $salarie->sexe }}</td>
-                    <td>{{ Illuminate\Support\Facades\Date::create(1900,1,0)->addDays($salarie->naissance-1)->format('d/m/Y') }}</td>
+                    <td>{{ $salarie->naissance }}</td>
                     <td>{{ $salarie->age }}</td>
                     <td>{{ $salarie->numero_secu }}</td>
                     <td>{{ $salarie->domiciliation_bancaire }}</td>
@@ -86,13 +86,9 @@
                     <td>{{ $salarie->unite }}</td>
                     <td>{{ $salarie->lib_unite }}</td>
                     <td>{{ $salarie->section_analytique }}</td>
-                    <td>{{ Illuminate\Support\Facades\Date::create(1900,1,0)->addDays($salarie->debut_anciennete_groupe-1)->format('d/m/Y') }}</td>
-                    <td>{{ Illuminate\Support\Facades\Date::create(1900,1,0)->addDays($salarie->debut_contrat-1)->format('d/m/Y') }}</td>
-                    @if(is_numeric($salarie->fin_contrat))
-                        <td>{{ Illuminate\Support\Facades\Date::create(1900,1,0)->addDays($salarie->fin_contrat-1)->format('d/m/Y') }}</td>
-                    @else
-                        <td>{{ $salarie->fin_contrat }}</td>
-                    @endif
+                    <td>{{ $salarie->debut_anciennete_groupe }}</td>
+                    <td>{{ $salarie->debut_contrat }}</td>
+                    <td>{{ $salarie->fin_contrat }}</td>
                     <td>{{ $salarie->filiere }}</td>
                     <td>{{ $salarie->sous_filiere }}</td>
                     <td>{{ $salarie->metier }}</td>

@@ -32,14 +32,8 @@ function changerValeur(valeur) {
     document.getElementById("validation").value = valeur;
 }
 
-
-
 // On récupère les éléments HTML que l'on a besoin
 const formContainer = document.getElementById('form-container');
-
-// On initialise un compteur de formulaires
-let nombre_stagiaires = 1;
-
 
 function addForm(salaries) {
     // On clone le premier élément de formulaire référencé par la classe row de Bootstrap
@@ -82,6 +76,18 @@ function removeLastForm() {
         nombre_stagiaires--;
         document.getElementById("compteur").textContent = "Nombre de salariés : " + nombre_stagiaires // On actualise l'affichage
         document.getElementById("nombre_stagiaires").value = getNombreStagiaires();
+    }
+}
+
+function addMultipleForms(count, salaries) {
+    for (let i = 0; i < count; i++) {
+        addForm(salaries);
+    }
+}
+
+function removeMultipleForms(count) {
+    for (let i = 0; i < count; i++) {
+        removeLastForm();
     }
 }
 

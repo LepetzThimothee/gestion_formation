@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <title>Plan</title>
@@ -11,12 +10,12 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 </head>
 <script>
-
-    var duree = {!! $duree ?? 0 !!};
+    const duree = {!! $stage->duree ?? 0 !!};
+    let nombre_stagiaires = 1;
 
     $(document).ready(function() {
         // Récupérer la liste des salariés pour la suggestion
-        var salaries = {!! json_encode($salaries->map(function($salarie) { return $salarie->nom . ' ' . $salarie->prenom . ' [' . $salarie->matricule . ']'; })) !!};
+        const salaries = {!! $salaries !!};
 
         // Initialiser l'autocomplétion sur le champ d'entrée des matricules
         $('input[name^="matricule"]').autocomplete({
@@ -32,9 +31,9 @@
         @csrf
         <div class="input-group">
             <div class="input-group-prepend">
-                    <span class="input-group-text" style="color: black">
-                        <strong>Charges patronales :</strong>
-                    </span>
+                <span class="input-group-text" style="color: black">
+                    <strong>Charges patronales :</strong>
+                </span>
             </div>
             <input type="number" step="0.01" name="charges_patronales" placeholder="charges patronales" value="{{ Illuminate\Support\Facades\Cache::get('charges_patronales') }}" class="form-control">
             <div class="input-group-append">
@@ -51,27 +50,29 @@
                 <a class="btn btn-primary" href="/">Accueil</a>
             </div>
         </div>
+        <button class="btn btn-primary mb-1 mt-1" onclick='addMultipleForms(10, {!! $salaries !!})'>+10</button>
+        <button class="btn btn-primary mb-1 mt-1" onclick='addForm({!! $salaries !!})'>Ajouter un salarié</button>
+        <button class="btn btn-primary mb-1 mt-1" onclick='removeLastForm()'>Supprimer le dernier salarié ajouté</button>
+        <button class="btn btn-primary mb-1 mt-1" onclick='removeMultipleForms(10)'>-10</button><br>
+        <em id="compteur">Nombre de salarié : 1</em>
         @if(session('status'))
             <div class="alert alert-success mb-1 mt-1">
                 {{ session('status') }}
             </div>
         @endif
-        <button class="btn btn-primary mb-1 mt-1" onclick='addForm({!! json_encode($salaries->map(function($salarie) { return $salarie->nom . ' ' . $salarie->prenom . ' [' . $salarie->matricule . ']'; })) !!})'>Ajouter un salarié</button>
-        <button class="btn btn-primary mb-1 mt-1" onclick="removeLastForm()">Supprimer le dernier salarié</button><br>
-        <em id="compteur">Nombre de salarié : 1</em>
         <form action="{{ route('plan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div id="form-container" class="text-center">
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <input type="hidden" name="nombre_stagiaires" value="1" id="nombre_stagiaires">
-                    <input type="hidden" name="session" value="{{ $cession }}">
+                    <input type="hidden" name="session" value="{{ $stage->session }}">
                     <div class="form-group">
                         <strong>Initulé du stage :</strong>
-                        <input type="text" name="intitule" id="validation" class="form-control" placeholder="intitulé du stage" value="{{ $intitule }}" onkeydown="return false;" required>
+                        <input type="text" name="intitule" id="validation" class="form-control" placeholder="intitulé du stage" value="{{ $stage->intitule }}" onkeydown="return false;" required>
                         <a href="{{ route('stages.index') }}">Liste des stages</a>
                     </div>
-                    @if($duree)
-                        <em>Durée du stage : {{ $duree }} heures</em>
+                    @if($stage->duree)
+                        <em>Durée du stage : {{ $stage->duree }} heures</em>
                     @endif
                 </div>
                 <div class="row" id="form-stagiaire">
@@ -84,7 +85,7 @@
                     </div>
                     <div class="form-group">
                         <strong>Nombre d'heures réalisées :</strong>
-                        <input type="number" name="nombre_heures_realisees[]" class="form-control @error('nombre_heures_realisees.*') is-invalid @enderror" placeholder="nombre d'heures réalisées" value="{{ $duree ?? 0 }}" required>
+                        <input type="number" name="nombre_heures_realisees[]" class="form-control @error('nombre_heures_realisees.*') is-invalid @enderror" placeholder="nombre d'heures réalisées" value="{{ $stage->duree ?? 0 }}" required>
                         @error('nombre_heures_realisees.*')
                         <div class="invalid-feedback mt-1 mb-1">{{ $message }}</div>
                         @enderror

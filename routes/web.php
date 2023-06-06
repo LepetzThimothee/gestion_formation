@@ -46,6 +46,9 @@ Route::resource('stages', StageController::class);
 Route::resource('salaries',SalarieController::class);
 Route::resource('plan', PlanController::class);
 
+// Route pour détacher un salarié d'un plan
+Route::delete('/plans/{plan}/salaries/{salarie}', [PlanController::class, 'detach'])->name('plan.detach');
+
 Route::post('/update-charges-patronales', function(Request $request) {
     // On récupère la nouvelle valeur de charges patronales depuis le formulaire
     $nouvelle_charges_patronales = $request->input('charges_patronales');
@@ -77,5 +80,5 @@ Route::post('/update-charges-patronales', function(Request $request) {
     }
 
     // Rediriger l'utilisateur vers la page d'accueil ou une autre page de votre choix
-    return redirect('/')->with('status', "Charges patronales modifiées avec succès");
+    return back()->with('status', "Charges patronales modifiées avec succès");
 });

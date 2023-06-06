@@ -29,9 +29,9 @@
         @csrf
         <div class="input-group">
             <div class="input-group-prepend">
-                    <span class="input-group-text" style="color: black">
-                        <strong>Charges patronales :</strong>
-                    </span>
+                <span class="input-group-text" style="color: black">
+                    <strong>Charges patronales :</strong>
+                </span>
             </div>
             <input type="number" step="0.01" name="charges_patronales" placeholder="charges patronales" value="{{ Illuminate\Support\Facades\Cache::get('charges_patronales') }}" class="form-control">
             <div class="input-group-append">
@@ -106,7 +106,10 @@
 
             <form id="formToutes" action="{{ route('plan-import') }}" style="display: none" method="POST"
                   enctype="multipart/form-data">
-                <em>Note : l'import du plan peut prendre une trentaine de secondes</em>
+                <div class="mb-2">
+                    <p class="text-center mb-1">Note : A l'importation du plan, on importe les trois autres tables.</p>
+                    <p class="text-center mb-0">L'import du plan peut prendre une trentaine de secondes</p>
+                </div>
                 @csrf
                 <input type="file" name="file" class="form-control">
                 <br>
