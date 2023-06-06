@@ -3,12 +3,8 @@
 <head>
     <title>Plan de formation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{asset('style.css')}}">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .hidden {
-            display: none;
-        }
-    </style>
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
@@ -42,6 +38,16 @@
     </div>
 </nav>
 <div class="container mt-3">
+    @if(session('status'))
+        <div class="alert alert-success mb-1 mt-1">
+            {{ session('status') }}
+        </div>
+    @endif
+    @if(session('error'))
+        <div class="alert alert-danger mb-1 mt-1">
+            {{ session('error') }}
+        </div>
+    @endif
     @foreach ($plans as $plan)
         <div class="card formations border-info mb-3">
             <div class="card-body">
@@ -96,6 +102,10 @@
                         @endforeach
                         </tbody>
                     </table>
+                </div>
+                <div class="text-right">
+                    <a href="{{ route('plan.edit', $plan->id) }}" class="btn btn-primary">Modifier</a>
+                    <a href="{{ route('plan.show', $plan->id) }}" class="btn btn-danger">Supprimer</a>
                 </div>
             </div>
         </div>
