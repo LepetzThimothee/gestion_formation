@@ -2,8 +2,13 @@
 
 namespace App\Models;
 
+use Barryvdh\LaravelIdeHelper\Eloquent;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Carbon;
 
 /**
  * App\Models\Salarie
@@ -48,62 +53,63 @@ use Illuminate\Database\Eloquent\Model;
  * @property float $horaire_contrat
  * @property float $montant_aq004
  * @property float $taux_horaire
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \App\Models\Plan> $plans
+ * @property Carbon|null $created_at
+ * @property Carbon|null $updated_at
+ * @property-read Collection<int, Plan> $plans
  * @property-read int|null $plans_count
- * @method static \Database\Factories\SalarieFactory factory($count = null, $state = [])
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie query()
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereAdeli($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereAdresseLigne1($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereAdresseLigne2($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereAdresseLigne3($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereAdresseLigne4($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereAge($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereBic($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereCodeEtablissement($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereCpn($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereDebutAncienneteGroupe($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereDebutContrat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereDomiciliationBancaire($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereEmailPerso($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereEmailPro($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereEmploi($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereFiliere($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereFinContrat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereHoraireContrat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereIban($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereLibUnite($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereMatricule($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereMetier($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereMontantAq004($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereNaissance($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereNatureContrat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereNom($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereNomJeuneFille($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereNumeroSecu($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie wherePrenom($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie wherePuissanceFiscal($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereReferentPaie($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereRpps($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereSectionAnalytique($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereSexe($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereSousFiliere($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereStatut($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereTauxEmploi($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereTauxHoraire($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereTypeContrat($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereUnite($value)
- * @method static \Illuminate\Database\Eloquent\Builder|Salarie whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @method static Builder|Salarie newModelQuery()
+ * @method static Builder|Salarie newQuery()
+ * @method static Builder|Salarie query()
+ * @method static Builder|Salarie whereAdeli($value)
+ * @method static Builder|Salarie whereAdresseLigne1($value)
+ * @method static Builder|Salarie whereAdresseLigne2($value)
+ * @method static Builder|Salarie whereAdresseLigne3($value)
+ * @method static Builder|Salarie whereAdresseLigne4($value)
+ * @method static Builder|Salarie whereAge($value)
+ * @method static Builder|Salarie whereBic($value)
+ * @method static Builder|Salarie whereCodeEtablissement($value)
+ * @method static Builder|Salarie whereCpn($value)
+ * @method static Builder|Salarie whereCreatedAt($value)
+ * @method static Builder|Salarie whereDebutAncienneteGroupe($value)
+ * @method static Builder|Salarie whereDebutContrat($value)
+ * @method static Builder|Salarie whereDomiciliationBancaire($value)
+ * @method static Builder|Salarie whereEmailPerso($value)
+ * @method static Builder|Salarie whereEmailPro($value)
+ * @method static Builder|Salarie whereEmploi($value)
+ * @method static Builder|Salarie whereFiliere($value)
+ * @method static Builder|Salarie whereFinContrat($value)
+ * @method static Builder|Salarie whereHoraireContrat($value)
+ * @method static Builder|Salarie whereIban($value)
+ * @method static Builder|Salarie whereLibUnite($value)
+ * @method static Builder|Salarie whereMatricule($value)
+ * @method static Builder|Salarie whereMetier($value)
+ * @method static Builder|Salarie whereMontantAq004($value)
+ * @method static Builder|Salarie whereNaissance($value)
+ * @method static Builder|Salarie whereNatureContrat($value)
+ * @method static Builder|Salarie whereNom($value)
+ * @method static Builder|Salarie whereNomJeuneFille($value)
+ * @method static Builder|Salarie whereNumeroSecu($value)
+ * @method static Builder|Salarie wherePrenom($value)
+ * @method static Builder|Salarie wherePuissanceFiscal($value)
+ * @method static Builder|Salarie whereReferentPaie($value)
+ * @method static Builder|Salarie whereRpps($value)
+ * @method static Builder|Salarie whereSectionAnalytique($value)
+ * @method static Builder|Salarie whereSexe($value)
+ * @method static Builder|Salarie whereSousFiliere($value)
+ * @method static Builder|Salarie whereStatut($value)
+ * @method static Builder|Salarie whereTauxEmploi($value)
+ * @method static Builder|Salarie whereTauxHoraire($value)
+ * @method static Builder|Salarie whereTypeContrat($value)
+ * @method static Builder|Salarie whereUnite($value)
+ * @method static Builder|Salarie whereUpdatedAt($value)
+ * @mixin Eloquent
  */
 class Salarie extends Model
 {
     use HasFactory;
     protected $primaryKey = 'matricule';
+
+    // Les attributs
     protected $fillable = [
         'matricule',
         'nom',
@@ -147,7 +153,13 @@ class Salarie extends Model
         'taux_horaire',
     ];
 
-    public function plans()
+    /**
+     * Relation avec les plans
+     * Un salarié peut être lié à plusieurs plans
+     *
+     * @return BelongsToMany
+     */
+    public function plans(): BelongsToMany
     {
         return $this->belongsToMany(Plan::class, 'plan_salarie', 'salarie_matricule', 'plan_id')
             ->using(PlanSalarie::class)

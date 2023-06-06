@@ -3,30 +3,30 @@
 namespace App\Imports;
 
 use App\Models\Formation;
-use Maatwebsite\Excel\Concerns\Importable;
+use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
-use function Webmozart\Assert\Tests\StaticAnalysis\null;
 
 class FormationSheetImporter implements ToModel, WithHeadingRow, WithUpserts
 {
     /**
      * Retourne la clé unique utilisée pour les opérations de mise à jour ou d'insertion.
      *
-     * @return string|array
+     * @return string
      */
-    public function uniqueBy()
+    public function uniqueBy(): string
     {
         return 'siret';
     }
 
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $row)
+     * Crée une instance du modèle Formation à partir d'un tableau de données qui représente les lignes du fichier Excel
+     *
+     * @param array $row
+     * @return Model|null
+     */
+    public function model(array $row): Formation|null
     {
         // Cela va nous permettre de vérifier si toutes les colonnes spécifiées sont nulles
         $colonnes = [

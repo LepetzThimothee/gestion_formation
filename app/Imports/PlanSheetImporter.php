@@ -3,8 +3,8 @@
 namespace App\Imports;
 
 use App\Models\Plan;
-use App\Models\PlanSalarie;
 use App\Models\Stage;
+use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
@@ -40,11 +40,12 @@ class PlanSheetImporter implements ToModel, WithHeadingRow, WithBatchInserts, Wi
     }
 
     /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    public function model(array $row)
+     * Crée une instance du modèle Plan à partir d'un tableau de données qui représente les lignes du fichier Excel
+     *
+     * @param array $row
+     * @return Model|null
+     */
+    public function model(array $row): Model|null
     {
         if (is_null($row['session']) || is_null($row['matricule'])) {
             return null; // Retourne null si les valeurs session ou matricule sont nulles

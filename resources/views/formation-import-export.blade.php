@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta charset="UTF-8">
     <title>Formation Import et Export</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
 <script type="text/javascript">
@@ -23,7 +24,6 @@
 </script>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
-    <!-- Logo et lien vers l'accueil -->
     <a class="navbar-brand" href="/">Gestion de formation</a>
     <form class="ml-auto" method="POST" action="{{ url('/update-charges-patronales') }}">
         @csrf
@@ -46,6 +46,11 @@
         @if(session('status'))
             <div class="alert alert-success mb-1 mt-3">
                 {{ session('status') }}
+            </div>
+        @endif
+        @if(session('error'))
+            <div class="alert alert-danger mb-1 mt-3">
+                {{ session('error') }}
             </div>
         @endif
         <div class="card-header mt-3">

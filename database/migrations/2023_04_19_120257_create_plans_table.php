@@ -15,10 +15,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('stage_id');
             $table->foreign('stage_id')->references('id')->on('stages');
-            $table->boolean('salaire_impute')->default(false);
             $table->integer('nombre_stagiaires');
             $table->double('cout_pedagogique_stagiaire');
-            $table->boolean('stage_annule')->default(false);
             $table->timestamps();
         });
     }

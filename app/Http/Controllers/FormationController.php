@@ -3,35 +3,58 @@
 namespace App\Http\Controllers;
 
 use App\Exports\FormationSheetExporter;
-use App\Http\Controllers\Controller;
 use App\Http\Requests\FormationRequest;
 use App\Imports\MultiSheetSelectorImport;
 use App\Models\Formation;
-use App\Models\Salarie;
-use App\Models\Stage;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Schema;
+use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
-use Exception;
+use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
 class FormationController extends Controller
 {
-    public function index() {
+    /**
+     * Affiche la liste des formations.
+     *
+     * @return View
+     */
+    public function index(): View
+    {
         $formations = Formation::all();
         return view('formations.index', ['formations' => $formations]);
     }
 
-    public function show($id) {
+    /**
+     * Affiche les détails d'une formation.
+     *
+     * @param int $id
+     * @return View
+     */
+    public function show(int $id): View
+    {
         $formation = Formation::findOrFail($id);
         return view('formations.show', ['formation' => $formation]);
     }
 
-    public function create()
+    /**
+     * Affiche le formulaire de création d'une formation.
+     *
+     * @return View
+     */
+    public function create(): View
     {
         return view('formations.create');
     }
 
-    public function store(FormationRequest $request) {
+    /**
+     * Enregistre une nouvelle formation.
+     *
+     * @param FormationRequest $request
+     * @return RedirectResponse
+     */
+    public function store(FormationRequest $request): RedirectResponse
+    {
         $formation = Formation::create([
             'organisme' => $request->input('organisme'),
             'telephone' => $request->input('telephone'),
@@ -45,12 +68,25 @@ class FormationController extends Controller
         return redirect(route("stages.create"))->with('status', "Formation créée avec succès");
     }
 
-    public function edit(Formation $formation)
+    /**
+     * Affiche le formulaire d'édition d'une formation.
+     *
+     * @param Formation $formation
+     * @return View
+     */
+    public function edit(Formation $formation): View
     {
         return view('formations.edit', ['formation' => $formation]);
     }
 
-    public function update(FormationRequest $request, Formation $formation)
+    /**
+     * Met à jour une formation existante.
+     *
+     * @param FormationRequest $request
+     * @param Formation $formation
+     * @return RedirectResponse
+     */
+    public function update(FormationRequest $request, Formation $formation): RedirectResponse
     {
         $formation->organisme = $request->input('organisme');
         $formation->telephone = $request->input('telephone');
@@ -64,7 +100,13 @@ class FormationController extends Controller
         return redirect(route("formations.index"))->with('status', "Formation mise à jour avec succès");
     }
 
-    public function destroy($id)
+    /**
+     * Supprime une formation.
+     *
+     * @param int $id
+     * @return RedirectResponse
+     */
+    public function destroy(int $id): RedirectResponse
     {
         $formation = Formation::findOrFail($id);
         $stages = $formation->stages;
@@ -83,20 +125,29 @@ class FormationController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\RedirectResponse
+     * Importe les formations à partir d'un fichier Excel.
+     *
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function formationImport(Request $request)
+    public function formationImport(Request $request): RedirectResponse
     {
-        $formation = new MultiSheetSelectorImport();
-        $formation->onlySheets('Organismes de formation'); // On prend que la feuille qui nous interesse
-        Excel::import($formation, $request->file('file'));
-        return redirect('/file-import-export')->with('status', 'Formations Importés avec succès!');
+        if ($request->hasFile('file')) {
+            $formation = new MultiSheetSelectorImport();
+            $formation->onlySheets('Organismes de formation');
+            Excel::import($formation, $request->file('file'));
+            return redirect('/file-import-export')->with('status', 'Formations importées avec succès!');
+        } else {
+            return redirect('/file-import-export')->with('error', 'Aucun fichier n\'a été sélectionné.');
+        }
     }
 
     /**
-     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     * Exporte les formations vers un fichier Excel.
+     *
+     * @return BinaryFileResponse
      */
-    public function formationExport(Request $request)
+    public function formationExport(): BinaryFileResponse
     {
         return Excel::download(new FormationSheetExporter, 'formation.xlsx');
     }

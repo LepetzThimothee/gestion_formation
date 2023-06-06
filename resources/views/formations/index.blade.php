@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
+    <meta charset="UTF-8">
     <title>Liste des Formations</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
-    <!-- Logo et lien vers l'accueil -->
     <a class="navbar-brand" href="/">Gestion de formation</a>
     <label for="searchbar"></label>
     <input id="searchbar" onkeyup="recherche(['liste-formations',0])" type="text"
@@ -52,14 +52,10 @@
                     <td>{{ $formation->adresse }}</td>
                     <td>{{ $formation->interlocuteur }}</td>
                     <td>
-                        <a href="{{ route('formations.edit', $formation->id) }}" class="btn btn-edit btn-sm mr-2">
-                            Modifier
-                        </a>
+                        <a href="{{ route('formations.edit', $formation->id) }}" class="btn btn-edit btn-sm mr-2">Modifier</a>
                     </td>
                     <td>
-                        <a href="{{ route('formations.show', $formation->id) }}" class="btn btn-delete btn-sm">
-                            Supprimer
-                        </a>
+                        <a href="{{ route('formations.show', $formation->id) }}" class="btn btn-delete btn-sm">Supprimer</a>
                     </td>
                 </tr>
             @endforeach
