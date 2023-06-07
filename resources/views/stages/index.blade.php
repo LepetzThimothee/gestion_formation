@@ -33,17 +33,17 @@
             <th>Session</th>
             <th>Intitule de formation</th>
             <th>Organisme de formation</th>
-            <th>Formation obligatoire</th>
-            <th>Intra Inter</th>
-            <th>Cout pedagogique</th>
+            <th>Formation obligatoire (O/N)</th>
+            <th>Intra Inter (A/R)</th>
+            <th>Cout pédagogique</th>
             <th>Debut formation</th>
             <th>Fin formation</th>
-            <th>Duree réelle de la formation</th>
-            <th>Opco SANTE</th>
-            <th>Convention de formation</th>
-            <th>Convocation</th>
-            <th>Attestation</th>
-            <th>Facture</th>
+            <th>Durée réelle de la formation</th>
+            <th>Opco SANTE (O/N)</th>
+            <th>Convention de formation (O/N)</th>
+            <th>Convocation (O/N)</th>
+            <th>Attestation (O/N)</th>
+            <th>Facture (O/N)</th>
             <th>Edition</th>
             <th>Suppression</th>
         </tr>

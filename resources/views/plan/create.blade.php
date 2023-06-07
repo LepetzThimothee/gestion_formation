@@ -66,7 +66,7 @@
                     <input type="hidden" name="nombre_stagiaires" value="1" id="nombre_stagiaires">
                     <input type="hidden" name="session" value="{{ $stage->session }}">
                     <div class="form-group">
-                        <label for="validation"><strong>Initulé du stage :</strong></label>
+                        <label for="validation"><strong>Intitulé du stage :</strong></label>
                         <input type="text" name="intitule" id="validation" class="form-control" placeholder="intitulé du stage" value="{{ $stage->intitule }}" onkeydown="return false;" required>
                         <a href="{{ route('stages.index') }}">Liste des stages</a>
                     </div>
