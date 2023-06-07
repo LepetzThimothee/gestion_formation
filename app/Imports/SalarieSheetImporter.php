@@ -4,7 +4,6 @@ namespace App\Imports;
 
 use App\Models\Salarie;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
