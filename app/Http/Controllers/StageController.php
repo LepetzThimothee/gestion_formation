@@ -16,6 +16,9 @@ use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
+/**
+ * Le contrôleur qui gère les fonctionnalités liées aux stages.
+ */
 class StageController extends Controller
 {
     /**
@@ -120,14 +123,20 @@ class StageController extends Controller
      */
     public function update(StageRequest $request, Stage $stage): RedirectResponse
     {
+        $formation = Formation::whereOrganisme($request->input('organisme'))->first();
+        if (!$formation) {
+            return redirect()->back()->with('error', "Cette formation n'existe pas.");
+        }
+
         $finFormation = null;
         if ($request->input('fin_formation')) {
             $finFormation = Carbon::parse($request->input('fin_formation'))->format('d/m/Y');
         }
+
         $stage->update([
             'session' => $request->input('session'),
             'intitule' => $request->input('intitule'),
-            'formation_id' => Formation::whereOrganisme($request->input('organisme'))->first()->id,
+            'formation_id' => $formation->id,
             'organisme' => $request->input('organisme'),
             'formation_obligatoire' => $request->input('formation_obligatoire'),
             'intra_inter' => $request->input('intra_inter'),

@@ -3,11 +3,17 @@
 namespace App\Exports;
 
 use App\Models\Formation;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithTitle;
 
+/**
+ * Classe d'exportation des formations.
+ * Elle permet de générer une collection de données à exporter.
+ * Elle prend en charge les en-têtes de colonnes et le titre du fichier exporté.
+ */
 class FormationSheetExporter implements FromCollection, WithHeadings, WithTitle
 {
     use Exportable;
@@ -15,9 +21,9 @@ class FormationSheetExporter implements FromCollection, WithHeadings, WithTitle
     /**
      * Retourne une collection des données des organismes de formation à exporter.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-    public function collection()
+    public function collection(): Collection
     {
         return Formation::get(['organisme','telephone','email',
             'numero_declaration_existence','siret','adresse','interlocuteur']);

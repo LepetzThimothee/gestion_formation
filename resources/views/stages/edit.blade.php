@@ -23,6 +23,16 @@
                 {{ session('status') }}
             </div>
         @endif
+        @if(session('error'))
+            <div class="alert alert-danger mb-1 mt-1">
+                {{ session('error') }}<br>
+            </div>
+            <em>Ne vous inquiétez pas, c'est surement parce que l'intitulé de l'organisme de formation<br>
+                n'est pas exactement comme dans la liste des organismes à cause de l'importation.<br>
+                Il vous faut alors trouver l'organisme qui correspond pour le référencer<br>
+                ou tout simplement la créer si vous ne le trouvez pas.
+            </em>
+        @endif
         <form action="{{ route('stages.update', $stage->id) }}" method="POST" enctype="multipart/form-data">
             @csrf
             @method('PUT')

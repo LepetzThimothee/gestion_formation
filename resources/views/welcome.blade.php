@@ -10,6 +10,7 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
     <a class="navbar-brand" href="/">Gestion de formation</a>
+    <!-- Formulaire pour la mise à jour des charges patronales -->
     <form class="ml-auto" method="POST" action="{{ url('/update-charges-patronales') }}">
         @csrf
         <div class="input-group">
@@ -25,9 +26,11 @@
         </div>
     </form>
 </nav>
+<!-- Affichage du message de succès s'il est présent -->
 @if (session('status'))
     <div class="alert alert-success mb-5 mt-1">{{ session('status') }}</div>
 @endif
+<!-- Contenu principal de la page -->
 <div class="container flex-grow-1 d-flex justify-content-center align-items-center">
     <div class="text-center">
         @if ($errors->any())
@@ -41,13 +44,13 @@
         @endif
         <h1 class="text-center mt-5">Bienvenue dans la gestion des formations</h1>
         <div class="row mt-5">
+            <!-- Liens vers les différentes pages de gestion et de listes -->
             <div class="col-md-6">
                 <h3 class="mb-4">Gestion</h3>
                 <div class="d-flex flex-column">
                     <a href="{{ route('stages.index') }}" class="btn btn-primary btn-lg mb-3" role="button">Gestion du Plan</a>
                     <a href="{{ route('formations.create') }}" class="btn btn-info btn-lg mb-3" role="button">Gestion des Organismes de formations</a>
                     <a href="{{ route('stages.create') }}" class="btn btn-info btn-lg mb-3" role="button">Gestion des Stages</a>
-                    <a href="/file-import-export" class="btn btn-secondary btn-lg" role="button">Gestion de l'exportation et l'importation</a>
                 </div>
             </div>
             <div class="col-md-6">
@@ -56,10 +59,11 @@
                     <a href="{{ route('plan.index') }}" class="btn btn-primary btn-lg mb-3" role="button">Liste des formations dans le plan</a>
                     <a href="{{ route('formations.index') }}" class="btn btn-info btn-lg mb-3" role="button">Liste des formations</a>
                     <a href="{{ route('stages.index') }}" class="btn btn-info btn-lg mb-3" role="button">Liste des stages</a>
-                    <a href="{{ route('salaries.index') }}" class="btn btn-info btn-lg" role="button">Liste des salariés</a>
+                    <a href="{{ route('salaries.index') }}" class="btn btn-info btn-lg mb-3" role="button">Liste des salariés</a>
                 </div>
             </div>
         </div>
+        <a href="/file-import-export" class="btn btn-secondary btn-lg" role="button">Gestion de l'exportation et l'importation</a>
     </div>
 </div>
 </body>

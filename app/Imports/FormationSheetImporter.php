@@ -8,6 +8,11 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 
+/**
+ * Classe d'importation des formations.
+ * Elle permet de convertir les lignes en modèles de formation.
+ * Elle prend en charge les en-têtes de colonnes et effectue des mises à jour si les enregistrements existent déjà.
+ */
 class FormationSheetImporter implements ToModel, WithHeadingRow, WithUpserts
 {
     /**

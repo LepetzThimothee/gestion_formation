@@ -3,6 +3,7 @@
 namespace App\Exports;
 
 use App\Models\Salarie;
+use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\Exportable;
 use Maatwebsite\Excel\Concerns\FromCollection;
 use Maatwebsite\Excel\Concerns\WithColumnFormatting;
@@ -10,6 +11,11 @@ use Maatwebsite\Excel\Concerns\WithHeadings;
 use Maatwebsite\Excel\Concerns\WithTitle;
 use PhpOffice\PhpSpreadsheet\Style\NumberFormat;
 
+/**
+ * Classe d'exportation des salariés.
+ * Elle permet de générer une collection de données à exporter.
+ * Elle prend en charge les en-têtes de colonnes, le formatage des colonnes et le titre du fichier exporté.
+ */
 class SalarieSheetExporter implements FromCollection, WithHeadings, WithColumnFormatting, WithTitle
 {
     use Exportable;
@@ -17,9 +23,9 @@ class SalarieSheetExporter implements FromCollection, WithHeadings, WithColumnFo
     /**
      * Retourne une collection des données des salariés à exporter.
      *
-     * @return \Illuminate\Support\Collection
+     * @return Collection
      */
-    public function collection()
+    public function collection(): Collection
     {
         return Salarie::get(['matricule','nom','nom_jeune_fille','prenom','code_etablissement','sexe','naissance','age','numero_secu','domiciliation','iban','bic','email_perso','email_pro',
             'adresse_ligne1','adresse_ligne2','adresse_ligne3','adresse_ligne4','nature_contrat','type_contrat','puissance_fiscal','referent_paie','unite','lib_unite','section_analytique',

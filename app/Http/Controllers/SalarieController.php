@@ -11,6 +11,9 @@ use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
+/**
+ * Le contrôleur qui gère les fonctionnalités liées aux salariés.
+ */
 class SalarieController extends Controller
 {
     /**

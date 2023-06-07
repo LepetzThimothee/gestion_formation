@@ -10,6 +10,11 @@ use Maatwebsite\Excel\Concerns\WithBatchInserts;
 use Maatwebsite\Excel\Concerns\WithChunkReading;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
+/**
+ * Classe d'importation du plan.
+ * Elle permet de convertir les lignes en modèles de plan.
+ * Elle prend en charge les en-têtes de colonnes et effectue des insertions par lots, en lisant les données par petits morceaux.
+ */
 class PlanSheetImporter implements ToModel, WithHeadingRow, WithBatchInserts, WithChunkReading
 {
     /**

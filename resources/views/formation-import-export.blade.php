@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
+<!-- Fonction JavaScript pour afficher/masquer les formulaires en fonction de la sélection -->
 <script type="text/javascript">
     function ShowHideForm() {
         const chkFormation = document.getElementById("chkFormation");
@@ -25,6 +26,7 @@
 <body>
 <nav class="navbar navbar-expand-md navbar-dark" style="background-color: #1e285d">
     <a class="navbar-brand" href="/">Gestion de formation</a>
+    <!-- Formulaire pour la mise à jour des charges patronales -->
     <form class="ml-auto" method="POST" action="{{ url('/update-charges-patronales') }}">
         @csrf
         <div class="input-group">
@@ -40,9 +42,11 @@
         </div>
     </form>
 </nav>
+<!-- Contenu principal de la page -->
 <div class="container flex-grow-1 d-flex justify-content-center align-items-center">
     <div class="card bg-light mt-3">
         <a href="/" class="btn btn-primary">Retour à l'accueil</a>
+        <!-- Affichage du message de succès ou d'erreur s'il est présent -->
         @if(session('status'))
             <div class="alert alert-success mb-1 mt-3">
                 {{ session('status') }}
@@ -76,6 +80,7 @@
             </label>
             <hr />
 
+            <!-- Formulaire d'importation de la table "Organismes de formation" -->
             <form id="formFormation" action="{{ route('formation-import') }}" style="display: none" method="POST"
                   enctype="multipart/form-data">
                 @csrf
@@ -87,6 +92,7 @@
                 <hr />
             </form>
 
+            <!-- Formulaire d'importation de la table "Stage" -->
             <form id="formStage" action="{{ route('stage-import') }}" style="display: none" method="POST"
                   enctype="multipart/form-data">
                 @csrf
@@ -98,6 +104,7 @@
                 <hr />
             </form>
 
+            <!-- Formulaire d'importation de la table "Salariés" -->
             <form id="formSalaries" action="{{ route('salarie-import') }}" style="display: none" method="POST"
                   enctype="multipart/form-data">
                 @csrf
@@ -109,6 +116,7 @@
                 <hr />
             </form>
 
+            <!-- Formulaire d'importation du "Plan" (avec informations supplémentaires) -->
             <form id="formToutes" action="{{ route('plan-import') }}" style="display: none" method="POST"
                   enctype="multipart/form-data">
                 <div class="mb-2">
@@ -124,6 +132,7 @@
                 <hr />
             </form>
 
+            <!-- Liens d'exportation -->
             <a class="btn btn-info" href="{{ route('formation-export') }}">
                 Export Formation
             </a>

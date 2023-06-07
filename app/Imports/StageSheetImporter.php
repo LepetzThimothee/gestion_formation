@@ -10,6 +10,11 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
 
+/**
+ * Classe d'importation des stages.
+ * Elle permet de convertir les lignes en modèles de stage.
+ * Elle prend en charge les en-têtes de colonnes et effectue des mises à jour si les enregistrements existent déjà.
+ */
 class StageSheetImporter implements ToModel, WithHeadingRow, WithUpserts
 {
     /**

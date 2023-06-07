@@ -15,6 +15,9 @@ use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 
+/**
+ * Le contrôleur qui gère les fonctionnalités liées aux plans.
+ */
 class PlanController extends Controller
 {
     /**
