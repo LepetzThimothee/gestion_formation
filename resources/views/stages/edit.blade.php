@@ -91,7 +91,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <label for="debut_formation"><strong>Date de début de formation :</strong></label>
-                        <input id="debut_formation" type="date" name="debut_formation" class="form-control" placeholder="date de début de formation" value="{{ date('Y-m-d', strtotime($stage->debut_formation)) }}">
+                        <input id="debut_formation" type="date" name="debut_formation" class="form-control" placeholder="date de début de formation" value="{{ DateTime::createFromFormat('d/m/Y', $stage->debut_formation)->format('Y-m-d') }}">
                         @error('debut_formation')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
@@ -100,7 +100,8 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <label for="fin_formation"><strong>Date de fin de formation :</strong></label>
-                        <input id="fin_formation" type="date" name="fin_formation" class="form-control" placeholder="date de fin de formation" value="{{ $stage->fin_formation ? date('Y-m-d', strtotime($stage->fin_formation)) : '' }}">                        @error('fin_formation')
+                        <input id="fin_formation" type="date" name="fin_formation" class="form-control" placeholder="date de fin de formation" value="{{ $stage->fin_formation ? DateTime::createFromFormat('d/m/Y', $stage->fin_formation)->format('Y-m-d') : '' }}">
+                        @error('fin_formation')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
                     </div>

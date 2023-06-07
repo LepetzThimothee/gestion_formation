@@ -8,8 +8,10 @@ use App\Imports\MultiSheetSelectorImport;
 use App\Models\Formation;
 use App\Models\Stage;
 use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 use Maatwebsite\Excel\Facades\Excel;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
@@ -62,29 +64,39 @@ class StageController extends Controller
      */
     public function store(StageRequest $request): RedirectResponse
     {
+        $stage = Stage::whereSession($request->input('session'))->first();
+        if ($stage) return redirect(route('stages.create'))->with('error', "Numéro de session déjà existant, si vous ne croyez pas avoir fait d'erreur, essayez de nouveau.");
+
         $finFormation = null;
-        if ($request->input('fin_formation')) {
-            $finFormation = Carbon::parse($request->input('fin_formation'))->format('d/m/Y'); // on vérifie que la date de fin de formation existe pour pouvoir lui changer son format
+        try {
+            DB::beginTransaction();
+            if ($request->input('fin_formation')) {
+                $finFormation = Carbon::parse($request->input('fin_formation'))->format('d/m/Y'); // on vérifie que la date de fin de formation existe pour pouvoir lui changer son format
+            }
+            $stage = Stage::create([
+                'session' => $request->input('session'),
+                'intitule' => $request->input('intitule'),
+                'formation_id' => Formation::whereOrganisme($request->input('organisme'))->first()->id,
+                'organisme' => $request->input('organisme'),
+                'formation_obligatoire' => $request->input('formation_obligatoire'),
+                'intra_inter' => $request->input('intra_inter'),
+                'cout_pedagogique' => $request->input('cout_pedagogique'),
+                'debut_formation' => Carbon::parse($request->input('debut_formation'))->format('d/m/Y'),
+                'fin_formation' => $finFormation,
+                'duree' => $request->input('duree'),
+                'opco' => $request->input('opco'),
+                'convention' => $request->input('convention'),
+                'convocation' => $request->input('convocation'),
+                'attestation' => $request->input('attestation'),
+                'facture' => $request->input('facture'),
+            ]);
+            $stage->save();
+            DB::commit();
+            return redirect(route('stages.index'))->with('status', "Stage créé avec succès");
+        } catch (Exception $e) {
+            DB::rollback();
+            return redirect(route('stages.create'))->with('error', "Une erreur s'est produite lors de la création du stage. Veuillez réessayer.");
         }
-        $stage = Stage::create([
-            'session' => $request->input('session'),
-            'intitule' => $request->input('intitule'),
-            'formation_id' => Formation::whereOrganisme($request->input('organisme'))->first()->id,
-            'organisme' => $request->input('organisme'),
-            'formation_obligatoire' => $request->input('formation_obligatoire'),
-            'intra_inter' => $request->input('intra_inter'),
-            'cout_pedagogique' => $request->input('cout_pedagogique'),
-            'debut_formation' => Carbon::parse($request->input('debut_formation'))->format('d/m/Y'),
-            'fin_formation' => $finFormation,
-            'duree' => $request->input('duree'),
-            'opco' => $request->input('opco'),
-            'convention' => $request->input('convention'),
-            'convocation' => $request->input('convocation'),
-            'attestation' => $request->input('attestation'),
-            'facture' => $request->input('facture'),
-        ]);
-        $stage->save();
-        return redirect("/stages")->with('status', "Stage créé avec succès");
     }
 
     /**

@@ -34,7 +34,8 @@ class StageSheetImporter implements ToModel, WithHeadingRow, WithUpserts
      * @param mixed $val La valeur à convertir
      * @return mixed La valeur convertie en format date (d/m/Y) ou la valeur d'origine si elle n'est pas numérique
      */
-    public function intToDate($val) {
+    public function intToDate(mixed $val): mixed
+    {
         if (is_numeric($val)) {
             $val = Carbon::create(1900,1,0)
                 ->addDays($val-1) // On ajoute le nombre de jours donné à 01/01/1900 qui est le système de date de Excel

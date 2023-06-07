@@ -23,6 +23,11 @@
                 {{ session('status') }}
             </div>
         @endif
+        @if(session('error'))
+            <div class="alert alert-danger mb-1 mt-1">
+                {{ session('error') }}
+            </div>
+        @endif
         <form action="{{ route('stages.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="text-center">
