@@ -30,12 +30,11 @@ class StageController extends Controller
     /**
      * Affiche les détails d'un stage.
      *
-     * @param int $id
+     * @param Stage $stage
      * @return View
      */
-    public function show(int $id): View
+    public function show(Stage $stage): View
     {
-        $stage = Stage::findOrFail($id);
         return view('stages.show', ['stage' => $stage]);
     }
 
@@ -136,12 +135,11 @@ class StageController extends Controller
     /**
      * Supprime un stage.
      *
-     * @param int $id
+     * @param Stage $stage
      * @return RedirectResponse
      */
-    public function destroy(int $id): RedirectResponse
+    public function destroy(Stage $stage): RedirectResponse
     {
-        $stage = Stage::findOrFail($id);
         $plans = $stage->plans;
         // On vérifie si le stage est référencé dans le plan
         if ($plans) {

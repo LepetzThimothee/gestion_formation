@@ -58,12 +58,11 @@ class PlanController extends Controller
     /**
      * Affiche les détails d'un plan spécifique.
      *
-     * @param int $id
+     * @param Plan $plan
      * @return View
      */
-    public function show(int $id): View
+    public function show(Plan $plan): View
     {
-        $plan = Plan::findOrFail($id);
         return view('plan.show', ['plan' => $plan]);
     }
 
@@ -97,7 +96,7 @@ class PlanController extends Controller
      * @param PlanRequest $request
      * @return RedirectResponse
      */
-    public function store(PlanRequest $request)
+    public function store(PlanRequest $request): RedirectResponse
     {
         // On crée un nouveau plan avec l'intitulé de stage
         $stage = Stage::whereSession($request->input('session'))->first();
@@ -164,12 +163,11 @@ class PlanController extends Controller
      * Met à jour un plan existant avec les nouvelles données fournies.
      *
      * @param PlanRequest $request
-     * @param
+     * @param Plan $plan
      * @return RedirectResponse
      */
-    public function update(PlanRequest $request, $id): RedirectResponse
+    public function update(PlanRequest $request, Plan $plan): RedirectResponse
     {
-        $plan = Plan::findOrFail($id);
         $stage = $plan->stage;
         $nombre_salaries = $request->input('nombre_stagiaires');
         $cout_pedagogique_stagiaire = $stage->cout_pedagogique / $nombre_salaries;
@@ -217,11 +215,10 @@ class PlanController extends Controller
     /**
      * Supprime un plan de la base de données.
      *
-     * @param int $id
+     * @param Plan $plan
      */
-    public function destroy(int $id)
+    public function destroy(Plan $plan)
     {
-        $plan = Plan::findOrFail($id);
         $plan->delete();
     }
 
@@ -240,7 +237,7 @@ class PlanController extends Controller
         // Supprime le lien pivot entre le plan et le salarié sans supprimer le salarié lui-même
         $plan->salaries()->detach($salarie);
         if ($plan->salaries()->count() == 0) {
-            $this->destroy($planId);
+            $this->destroy($plan);
             return redirect(route('plan.index'))->with('status', 'Aucun salarié dans le plan, suppression du plan.');
         }
         $plan->nombre_stagiaires = $plan->salaries()->count();

@@ -28,12 +28,11 @@ class FormationController extends Controller
     /**
      * Affiche les détails d'une formation.
      *
-     * @param int $id
+     * @param Formation $formation
      * @return View
      */
-    public function show(int $id): View
+    public function show(Formation $formation): View
     {
-        $formation = Formation::findOrFail($id);
         return view('formations.show', ['formation' => $formation]);
     }
 
@@ -103,17 +102,16 @@ class FormationController extends Controller
     /**
      * Supprime une formation.
      *
-     * @param int $id
+     * @param Formation $formation
      * @return RedirectResponse
      */
-    public function destroy(int $id): RedirectResponse
+    public function destroy(Formation $formation): RedirectResponse
     {
-        $formation = Formation::findOrFail($id);
         $stages = $formation->stages;
         // On vérifie si des stages référencent cette formation
         if ($stages->count() > 0) {
             $stageInfo = $stages->map(function($stage) {
-                return "(Numéro de session : {$stage->session}, Intitulé : {$stage->intitule})";
+                return "(Numéro de session : $stage->session, Intitulé : $stage->intitule)";
             })->implode(' | ');
 
             return redirect(route('formations.index'))->with('error', "La formation ne peut pas être supprimée car elle est associée aux stages suivants : $stageInfo");
