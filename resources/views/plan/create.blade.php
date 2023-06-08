@@ -53,17 +53,17 @@
         <button class="btn btn-primary mb-1 mt-1" onclick='addForm({!! $salaries !!})'>Ajouter un salarié</button>
         <button class="btn btn-primary mb-1 mt-1" onclick='removeLastForm()'>Supprimer le dernier salarié ajouté</button>
         <button class="btn btn-info mb-1 mt-1" onclick='removeMultipleForms(10)'>-10 salariés</button><br>
-        <em id="compteur">Nombre de salarié : 1</em>
         @if(session('status'))
             <div class="alert alert-success mb-1 mt-1">
                 {{ session('status') }}
             </div>
         @endif
+        <em id="compteur">Nombre de salarié : 1</em>
         <form action="{{ route('plan.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div id="form-container" class="text-center">
                 <div class="col-xs-12 col-sm-12 col-md-12">
-                    <input type="hidden" name="nombre_stagiaires" value="1" id="nombre_stagiaires">
+                    <input type="number" name="nombre_stagiaires" value="1" id="nombre_stagiaires" required>
                     <input type="hidden" name="session" value="{{ $stage->session }}">
                     <div class="form-group">
                         <label for="validation"><strong>Intitulé du stage :</strong></label>
