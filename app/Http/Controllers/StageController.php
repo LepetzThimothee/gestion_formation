@@ -130,8 +130,11 @@ class StageController extends Controller
     public function update(StageRequest $request, Stage $stage): RedirectResponse
     {
         $formation = Formation::whereOrganisme($request->input('organisme'))->first();
-        if (!$formation) {
+        if (!$formation && $request->input('organisme')) {
             return redirect()->back()->with('error', "Cette formation n'existe pas.");
+        }
+        if ($formation){
+            $formation = $formation->id;
         }
 
         $finFormation = null;
@@ -142,7 +145,7 @@ class StageController extends Controller
         $stage->update([
             'session' => $request->input('session'),
             'intitule' => $request->input('intitule'),
-            'formation_id' => $formation->id,
+            'formation_id' => $formation,
             'organisme' => $request->input('organisme'),
             'formation_obligatoire' => $request->input('formation_obligatoire'),
             'intra_inter' => $request->input('intra_inter'),
