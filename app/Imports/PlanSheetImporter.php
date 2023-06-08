@@ -45,7 +45,7 @@ class PlanSheetImporter implements ToModel, WithHeadingRow, WithBatchInserts, Wi
     }
 
     /**
-     * Crée une instance du modèle Plan à partir d'un tableau de données qui représente les lignes du fichier Excel
+     * Crée une instance de Plan à partir d'un tableau de données qui représente les lignes du fichier Excel
      *
      * @param array $row
      * @return Model|null

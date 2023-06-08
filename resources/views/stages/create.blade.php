@@ -25,7 +25,10 @@
         @endif
         @if(session('error'))
             <div class="alert alert-danger mb-1 mt-1">
-                {{ session('error') }}
+                <p>
+                    {{ session('error') }}<br>
+                    Si vous ne croyez pas avoir fait d'erreur, essayez de nouveau.
+                </p>
             </div>
         @endif
         <form action="{{ route('stages.store') }}" method="POST" enctype="multipart/form-data">
@@ -61,7 +64,7 @@
                         @error('organisme')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror
-                        <a href="{{route("formations.create")}}">elle n'existe pas ?</a>
+                        <a href="{{route("formations.create")}}">il n'existe pas ?</a>
                     </div>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-12">

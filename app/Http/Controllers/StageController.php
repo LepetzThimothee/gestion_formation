@@ -68,19 +68,25 @@ class StageController extends Controller
     public function store(StageRequest $request): RedirectResponse
     {
         $stage = Stage::whereSession($request->input('session'))->first();
-        if ($stage) return redirect(route('stages.create'))->with('error', "Numéro de session déjà existant, si vous ne croyez pas avoir fait d'erreur, essayez de nouveau.");
+        if ($stage) return redirect(route('stages.create'))->with('error', "Numéro de session déjà existant.");
 
         $finFormation = null;
+        $organisme = null;
+        $formation_id = null;
         try {
             DB::beginTransaction();
             if ($request->input('fin_formation')) {
                 $finFormation = Carbon::parse($request->input('fin_formation'))->format('d/m/Y'); // on vérifie que la date de fin de formation existe pour pouvoir lui changer son format
             }
+            if ($request->input('organisme')) {
+                $organisme = $request->input('organisme');
+                $formation_id = Formation::whereOrganisme($organisme)->first()->id;
+            }
             $stage = Stage::create([
                 'session' => $request->input('session'),
                 'intitule' => $request->input('intitule'),
-                'formation_id' => Formation::whereOrganisme($request->input('organisme'))->first()->id,
-                'organisme' => $request->input('organisme'),
+                'formation_id' => $formation_id,
+                'organisme' => $organisme,
                 'formation_obligatoire' => $request->input('formation_obligatoire'),
                 'intra_inter' => $request->input('intra_inter'),
                 'cout_pedagogique' => $request->input('cout_pedagogique'),
@@ -96,9 +102,9 @@ class StageController extends Controller
             $stage->save();
             DB::commit();
             return redirect(route('stages.index'))->with('status', "Stage créé avec succès");
-        } catch (Exception $e) {
+        } catch (Exception) {
             DB::rollback();
-            return redirect(route('stages.create'))->with('error', "Une erreur s'est produite lors de la création du stage. Veuillez réessayer.");
+            return redirect(route('stages.create'))->with('error', "Une erreur s'est produite lors de la création du stage.");
         }
     }
 

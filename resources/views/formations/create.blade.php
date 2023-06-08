@@ -65,7 +65,7 @@
                 <div class="col-xs-12 col-sm-12 col-md-12">
                     <div class="form-group">
                         <label for="siret"><strong>Numéro de SIRET :</strong></label>
-                        <input id="siret" type="number" name="siret" class="form-control" placeholder="numéro de siret">
+                        <input id="siret" type="text" name="siret" class="form-control" placeholder="numéro de siret">
                         @error('siret')
                         <div class="alert alert-danger mt-1 mb-1">{{ $message }}</div>
                         @enderror

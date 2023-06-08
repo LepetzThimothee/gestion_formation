@@ -26,7 +26,7 @@ class FormationSheetImporter implements ToModel, WithHeadingRow, WithUpserts
     }
 
     /**
-     * Crée une instance du modèle Formation à partir d'un tableau de données qui représente les lignes du fichier Excel
+     * Crée une instance de Formation à partir d'un tableau de données qui représente les lignes du fichier Excel
      *
      * @param array $row
      * @return Model|null

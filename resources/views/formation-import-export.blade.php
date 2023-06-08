@@ -9,6 +9,7 @@
 <!-- Fonction JavaScript pour afficher/masquer les formulaires en fonction de la sélection -->
 <script type="text/javascript">
     function ShowHideForm() {
+        // On récupère les éléments HTML correspondant aux cases à cocher et aux formulaires
         const chkFormation = document.getElementById("chkFormation");
         const chkStage = document.getElementById("chkStage");
         const chkSalaries = document.getElementById("chkSalaries");
@@ -17,6 +18,8 @@
         const formStage = document.getElementById("formStage");
         const formSalaries = document.getElementById("formSalaries");
         const formToutes = document.getElementById("formToutes");
+
+        // On affiche ou masque les formulaires en fonction de la case cochée
         formFormation.style.display = chkFormation.checked ? "block" : "none";
         formStage.style.display = chkStage.checked ? "block" : "none";
         formSalaries.style.display = chkSalaries.checked ? "block" : "none";

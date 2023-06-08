@@ -42,13 +42,16 @@ class SalarieSheetImporter implements ToModel, WithHeadingRow, WithUpserts
     }
 
     /**
-     * Crée une instance du modèle Salarié à partir d'un tableau de données qui représente les lignes du fichier Excel
+     * Crée une instance de Salarié à partir d'un tableau de données qui représente les lignes du fichier Excel
      *
      * @param array $row
      * @return Salarie|null
      */
     public function model(array $row): Salarie|null
     {
+        if (is_null($row['matricule']) || is_null($row['nom_de_famil_le_de_lagen']) || is_null($row["prenom_de_l_agent"])) {
+            return null; // On retourne null si la ligne du matricule, du nom ou du prénom est null
+        }
         return new Salarie([
             'matricule' => $row['matricule'],
             'nom' => $row['nom_de_famil_le_de_lagen'],

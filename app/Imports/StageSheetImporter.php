@@ -87,7 +87,7 @@ class StageSheetImporter implements ToModel, WithHeadingRow, WithUpserts
     }
 
     /**
-     * Crée une instance du modèle Stage à partir d'un tableau de données qui représente les lignes du fichier Excel
+     * Crée une instance de Stage à partir d'un tableau de données qui représente les lignes du fichier Excel
      *
      * @param array $row
      * @return Model|null

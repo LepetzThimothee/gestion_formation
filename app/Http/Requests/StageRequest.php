@@ -27,8 +27,8 @@ class StageRequest extends FormRequest
         return [
             'session' => "required|integer",
             'intitule' => "required|string",
-            'formation_id' => "integer",
-            'organisme' => "required|string",
+            'formation_id' => "nullable|integer",
+            'organisme' => "nullable|string",
             'formation_obligatoire' => "string|min:1|max:1",
             'intra_inter' => "string|min:1|max:1",
             'cout_pedagogique' => "required|numeric",
@@ -53,7 +53,6 @@ class StageRequest extends FormRequest
         return [
             'session.required' => "Entrer le numero de session du stage.",
             'intitule.required' => "Entrer l'intitule du stage.",
-            'organisme.required' => "Entrer l'organisme de formation.",
             'cout_pedagogique.required' => "Entrer le cout pedagoqique du stage",
             'debut_formation.date' => "Entrer une date valide",
             'fin_formation.date' => "Entrer une date valide",

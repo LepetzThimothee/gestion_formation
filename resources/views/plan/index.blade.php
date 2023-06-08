@@ -57,6 +57,8 @@
                         <div class="card border-info mb-3">
                             <div class="card-body">
                                 <h5 class="card-title">Détails du Stage : {{ $plan->stage->intitule }}</h5>
+                                <p class="card-text">Formation obligatoire(O/N) ? : {{ $plan->stage->formation_obligatoire }}</p>
+                                <p class="card-text">Intra(A) ou Inter(R) ? : {{ $plan->stage->intra_inter }}</p>
                                 <p class="card-text">Organisme de formation : {{ $plan->stage->organisme }}</p>
                                 <p class="card-text">Coût Pédagogique : {{ $plan->stage->cout_pedagogique }}</p>
                                 <p class="card-text">Durée de la formation : {{ $plan->stage->duree }} heures</p>
