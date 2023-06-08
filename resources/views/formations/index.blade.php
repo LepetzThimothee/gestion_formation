@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Liste des Formations</title>
+    <title>Liste des Organismes de Formation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
@@ -14,7 +14,7 @@
            class="form-control" placeholder="organisme de formation">
 </nav>
 <div class="mx-4 mt-4">
-    <h1>Liste des Formations</h1>
+    <h1>Liste des Organismes de Formation</h1>
     @if(session('status'))
         <div class="alert alert-success mb-1 mt-1">
             {{ session('status') }}

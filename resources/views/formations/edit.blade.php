@@ -2,7 +2,7 @@
 <html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <title>Édition d'une formation</title>
+    <title>Édition d'un organisme de formation</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <link rel="stylesheet" href="{{asset('style.css')}}">
 </head>
@@ -14,7 +14,7 @@
     <div class="text-center">
         <div class="row">
             <div class="col-lg-12 margin-tb">
-                <h2>Édition d'une formation</h2>
+                <h2>L'Organisme de formation</h2>
                 <a class="btn btn-primary" href="/"> Retour</a>
             </div>
         </div>

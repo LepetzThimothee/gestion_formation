@@ -48,9 +48,9 @@
             <div class="col-md-6">
                 <h3 class="mb-4">Gestion</h3>
                 <div class="d-flex flex-column">
-                    <a href="{{ route('stages.index') }}" class="btn btn-primary btn-lg mb-3" role="button">Gestion du Plan</a>
-                    <a href="{{ route('formations.create') }}" class="btn btn-info btn-lg mb-3" role="button">Gestion des Organismes de formations</a>
-                    <a href="{{ route('stages.create') }}" class="btn btn-info btn-lg mb-3" role="button">Gestion des Stages</a>
+                    <a href="{{ route('stages.index') }}" class="btn btn-primary btn-lg mb-4" role="button">Gestion du Plan</a>
+                    <a href="{{ route('formations.create') }}" class="btn btn-info btn-lg mb-4" role="button">Gestion des Organismes de formations</a>
+                    <a href="{{ route('stages.create') }}" class="btn btn-info btn-lg" role="button">Gestion des Stages</a>
                 </div>
             </div>
             <div class="col-md-6">

@@ -29,7 +29,7 @@ class FormationRequest extends FormRequest
             'telephone' => "nullable|string",
             'email' => "nullable|email",
             'numero_declaration_existence' => "nullable|string",
-            'siret' => "nullable|integer",
+            'siret' => "nullable|string",
             'adresse' => "nullable|string",
             'interlocuteur' => "nullable|string"
         ];
@@ -45,7 +45,6 @@ class FormationRequest extends FormRequest
         return [
             'organisme.required' => "Entrer le nom de l'organisme de formation.",
             'email.email' => 'Entrer une adresse email valide.',
-            'siret.integer' => 'Entrer un numero de siret valide.',
         ];
     }
 }
